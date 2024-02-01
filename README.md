@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+Checklist
+
+[] - Usuário normal tem acesso a galeria de fotos, envio de fotos, cadastro de participantes.
+[] - Admin tem acesso a lista de participantes, cadastro de eventos.
+[] - Na home deve haver link para redes sociais como Meetup e/ou instagram.
+[] - O usuário deve visualizar a agenda de eventos.
+[] - O usuário poderá fazer doações via integração com o Strapi.
+[] - Na home deverá haver um link para área logada.
