@@ -43,3 +43,4 @@ Checklist
 [] - O usuário deve visualizar a agenda de eventos.
 [] - O usuário poderá fazer doações via integração com o Strapi.
 [] - Na home deverá haver um link para área logada.
+[] - Instalar Jest, RTL, criar testes unitários e integrados
