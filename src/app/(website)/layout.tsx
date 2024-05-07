@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { Footer } from "./components/Footer";
+import "../globals.css";
+import { Footer } from "../components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +20,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="min-h-screen flex flex-col">
           <div className="flex-1">{children}</div>
-
-          <div className="bg-gray-200 py-5 text-center h-20">
+          {/* <div className="bg-gray-200 py-5 text-center h-20">
             <Footer />
-          </div>
+          </div> */}
         </div>
       </body>
     </html>

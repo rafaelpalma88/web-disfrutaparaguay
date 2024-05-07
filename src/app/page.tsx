@@ -1,8 +1,9 @@
-import { Footer } from "@/components/Footer";
-import Link from "next/link";
+import { Header } from "./components/Header";
 
 export default function Home() {
   return (
-    <p className="h-full flex items-center justify-center">Home</p>
-  )
+    <div>
+      <Header />
+    </div>
+  );
 }
