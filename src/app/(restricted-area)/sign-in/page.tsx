@@ -1,50 +1,52 @@
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-// import { useTheme } from "next-themes";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
 
-export default function SignIn (): JSX.Element {
-  // const { theme } = useTheme()
+export default function SignIn(): JSX.Element {
+  const { theme } = useTheme();
 
-  // console.log('theme', theme)
+  console.log("theme", theme);
 
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '100vh', // Definir a altura da página inteira
-        backgroundColor: '#f5f5f5' // Cor de fundo para facilitar a visualização
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh", // Definir a altura da página inteira
+        backgroundColor: "#f5f5f5", // Cor de fundo para facilitar a visualização
       }}
     >
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '400px',
-          border: '1px solid #ccc',
-          padding: '20px',
-          borderRadius: '5px',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-          backgroundColor: 'white'
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "400px",
+          border: "1px solid #ccc",
+          padding: "20px",
+          borderRadius: "5px",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+          backgroundColor: "white",
         }}
       >
         <h2>Login</h2>
         <form
           style={{
-            display: 'flex',
-            flexDirection: 'column',
+            display: "flex",
+            flexDirection: "column",
             // alignItems: "center",
-            justifyContent: 'center',
-            width: '100%'
+            justifyContent: "center",
+            width: "100%",
             // color: theme === 'dark' ? 'text-white' : 'text-black',
           }}
         >
           <div style={{ marginBottom: 20 }}>
-            <label htmlFor="username" style={{}}>Username:</label>
+            <label htmlFor="username" style={{}}>
+              Username:
+            </label>
             {/* <input type="text" id="username" name="username" /> */}
             <Input />
 
@@ -70,5 +72,5 @@ export default function SignIn (): JSX.Element {
         </form>
       </div>
     </div>
-  )
+  );
 }
