@@ -1,10 +1,16 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+// import { useTheme } from "next-themes";
 
 export default function SignIn() {
+
+  // const { theme } = useTheme()
+
+  // console.log('theme', theme)
+
   return (
     <div
-      style={{
+         style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -35,6 +41,7 @@ export default function SignIn() {
             // alignItems: "center",
             justifyContent: "center",
             width: "100%",
+            // color: theme === 'dark' ? 'text-white' : 'text-black',
           }}
         >
           <div style={{ marginBottom: 20 }}>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ModeToggle } from "../ModeThemeToggle";
 
 export function Header() {
   return (
@@ -18,6 +19,7 @@ export function Header() {
       <li>
         <Link href="/sign-up">Sign-up</Link>
       </li>
+      <ModeToggle />
     </ul>
   );
 }
