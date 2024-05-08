@@ -1,5 +1,4 @@
 import "../globals.css";
-import { Footer } from "../components/Footer";
 
 export default function RestrictedAreaLayout({
   children,
@@ -9,6 +8,10 @@ export default function RestrictedAreaLayout({
   return (
     <>
       <div className="flex-1">{children}</div>
+
+      <p>OI</p>
+
+      <span>Oi</span>
     </>
   );
 }
