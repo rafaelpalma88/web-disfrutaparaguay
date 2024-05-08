@@ -1,3 +1,6 @@
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+
 export default function SignIn() {
   return (
     <div
@@ -29,18 +32,21 @@ export default function SignIn() {
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            // alignItems: "center",
             justifyContent: "center",
             width: "100%",
           }}
         >
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" />
+          <div style={{ marginBottom: 20 }}>
+            <label htmlFor="username" style={{}}>Username:</label>
+            {/* <input type="text" id="username" name="username" /> */}
+            <Input />
 
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" />
-
-          <button
+            <label htmlFor="password">Password:</label>
+            {/* <input type="password" id="password" name="password" /> */}
+            <Input />
+          </div>
+          {/* <button
             type="submit"
             style={{
               marginTop: "20px",
@@ -53,7 +59,8 @@ export default function SignIn() {
             }}
           >
             Sign In
-          </button>
+          </button> */}
+          <Button variant="outline">Button</Button>
         </form>
       </div>
     </div>
