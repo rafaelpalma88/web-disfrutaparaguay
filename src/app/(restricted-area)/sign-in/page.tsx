@@ -1,20 +1,11 @@
-"use client";
-
-import {
-  BoxLogin,
-  Container,
-  CustomButton,
-  CustomInput,
-  Label,
-} from "./page.styled";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SignIn(): JSX.Element {
   return (
-    <Container>
-      <BoxLogin>
-        <Link href={"/"} style={{ width: "70%", marginBottom: 20 }}>
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="flex flex-col items-center justify-center w-96 border border-gray-300 p-8 rounded-lg shadow-md">
+        <Link href={"/"} className="w-3/4 mb-4">
           <Image
             src="/logoDisfrutaParaguay.png"
             width={500}
@@ -22,43 +13,41 @@ export default function SignIn(): JSX.Element {
             alt="Logo Disfruta Paraguay"
           />
         </Link>
-        <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
-          <Label htmlFor="username">E-mail:</Label>
-          <CustomInput />
+        <form className="flex flex-col justify-center w-full">
+          <label htmlFor="username" className="mb-2">
+            E-mail:
+          </label>
+          <input
+            type="email"
+            className="border border-gray-300 p-2 rounded mb-4"
+          />
 
-          <Label htmlFor="password">Password:</Label>
+          <label htmlFor="password" className="mb-2">
+            Password:
+          </label>
+          <input
+            type="password"
+            className="border border-gray-300 p-2 rounded mb-4"
+          />
 
-          <CustomInput type="password" />
+          <button className="bg-blue-500 text-white py-2 px-4 rounded mb-4">
+            Sign In
+          </button>
 
-          <CustomButton variant="default">Sign In</CustomButton>
-
-          <div style={{ display: "flex", flexDirection: "row-reverse" }}>
+          <div className="flex justify-end">
             <Link href="/forgot-password">
-              <p style={{ marginTop: 7, textDecoration: "underline" }}>
-                Forgot password ?
-              </p>
+              <p className="mt-2 underline">Forgot password ?</p>
             </Link>
           </div>
 
-          <div style={{ marginTop: 40, textAlign: "center" }}>
+          <div className="mt-8 text-center">
             <p>Still don't have your account?</p>
             <Link href="/sign-up">
-              <p style={{ fontWeight: "bold", textDecoration: "underline" }}>
-                Create a new one
-              </p>
+              <p className="font-bold underline">Create a new one</p>
             </Link>
           </div>
         </form>
-      </BoxLogin>
-    </Container>
+      </div>
+    </div>
   );
 }
-
-// TODO: Colocar um check-box Remember Me
