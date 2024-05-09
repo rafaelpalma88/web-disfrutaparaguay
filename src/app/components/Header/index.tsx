@@ -44,12 +44,12 @@ export const Header = () => {
           </Link>
           <nav>
             <ul className="flex justify-center items-center space-x-4">
-              <li className="pl-2 pr-2">
+              {/* <li className="pl-2 pr-2">
                 <Link href="/">Home</Link>
               </li>
               <li className="pl-2 pr-2">
                 <Link href="/about">About</Link>
-              </li>
+              </li> */}
               <li className="pl-2 pr-2">
                 <Link href="/sign-in">
                   <Button>Sign In</Button>
