@@ -1,76 +1,64 @@
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
+"use client";
+
+import {
+  BoxLogin,
+  Container,
+  CustomButton,
+  CustomInput,
+  Label,
+} from "./page.styled";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function SignIn(): JSX.Element {
-  const { theme } = useTheme();
-
-  console.log("theme", theme);
-
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh", // Definir a altura da página inteira
-        backgroundColor: "#f5f5f5", // Cor de fundo para facilitar a visualização
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "400px",
-          border: "1px solid #ccc",
-          padding: "20px",
-          borderRadius: "5px",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          backgroundColor: "white",
-        }}
-      >
-        <h2>Login</h2>
+    <Container>
+      <BoxLogin>
+        <Link href={"/"} style={{ width: "70%", marginBottom: 20 }}>
+          <Image
+            src="/logoDisfrutaParaguay.png"
+            width={500}
+            height={500}
+            alt="Logo Disfruta Paraguay"
+          />
+        </Link>
         <form
           style={{
             display: "flex",
             flexDirection: "column",
-            // alignItems: "center",
             justifyContent: "center",
             width: "100%",
-            // color: theme === 'dark' ? 'text-white' : 'text-black',
           }}
         >
-          <div style={{ marginBottom: 20 }}>
-            <label htmlFor="username" style={{}}>
-              Username:
-            </label>
-            {/* <input type="text" id="username" name="username" /> */}
-            <Input />
+          <Label htmlFor="username">E-mail:</Label>
+          <CustomInput />
 
-            <label htmlFor="password">Password:</label>
-            {/* <input type="password" id="password" name="password" /> */}
-            <Input />
+          <Label htmlFor="password">Password:</Label>
+
+          <CustomInput type="password" />
+
+          <CustomButton variant="default">Sign In</CustomButton>
+
+          <div style={{ display: "flex", flexDirection: "row-reverse" }}>
+            <Link href="/forgot-password">
+              <p style={{ marginTop: 7, textDecoration: "underline" }}>
+                Forgot password ?
+              </p>
+            </Link>
           </div>
-          {/* <button
-            type="submit"
-            style={{
-              marginTop: "20px",
-              padding: "10px 20px",
-              backgroundColor: "#007bff",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            Sign In
-          </button> */}
-          <Button variant="outline">Button</Button>
+
+          <div style={{ marginTop: 40, textAlign: "center" }}>
+            <p>Still don't have your account?</p>
+            <Link href="/sign-up">
+              <p style={{ fontWeight: "bold", textDecoration: "underline" }}>
+                Create a new one
+              </p>
+            </Link>
+          </div>
         </form>
-      </div>
-    </div>
+      </BoxLogin>
+    </Container>
   );
 }
+
+// TODO: Colocar um check-box Remember Me

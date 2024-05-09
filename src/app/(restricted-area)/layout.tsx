@@ -8,10 +8,6 @@ export default function RestrictedAreaLayout({
   return (
     <>
       <div className="flex-1">{children}</div>
-
-      <p>OI</p>
-
-      <span>Oi</span>
     </>
   );
 }
