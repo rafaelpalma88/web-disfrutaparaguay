@@ -19,14 +19,17 @@ export default function Home() {
             style={{ marginTop: "calc(50vh)" }}
           >
             <div className="w-1/2 mt-16">
-              <span className="mb-5 inline-block font-extrabold text-3xl antialiased bg-white px-2 py-2">
+              <span className="mb-5 inline-block font-extrabold text-3xl antialiased bg-blue-800 text-white px-2 py-2">
+                {/* 0038A8 */}
                 Your group in Paraguay
               </span>
-              <span className="mb-5 inline-block font-semibold antialiased bg-white px-2 py-2">
+              <span className="mb-5 inline-block font-semibold antialiased px-2 py-2 bg-red-600 text-white">
+                {/* D52B1E */}
                 If you're an expatriate looking to get involved in philanthropic
-                work or make new friends, you've found your group!
+                work, to explore what the country offers, or to make new
+                friends, you've found your group!
               </span>
-              <Button>Join us!</Button>
+              <Button className="">Join us!</Button>
             </div>
           </div>
         </div>
