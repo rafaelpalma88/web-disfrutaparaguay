@@ -43,7 +43,9 @@ export default function SignIn(): JSX.Element {
           <div className="mt-8 text-center">
             <p>Still don't have your account?</p>
             <Link href="/sign-up">
-              <p className="font-bold underline">Create a new one</p>
+              <p className="font-bold underline">
+                Would you like to create one now?
+              </p>
             </Link>
           </div>
         </form>

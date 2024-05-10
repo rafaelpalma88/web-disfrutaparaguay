@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Header } from "./components/Header";
 import Image from "next/image";
+import { FooterHome } from "./components/FooterHome";
 
 export default function Home() {
   return (
@@ -38,10 +39,10 @@ export default function Home() {
         <div className="w-3/5 pr-8">
           <p className="text-2xl font-bold mb-4">How everything started</p>
           <p>
-            <strong>Disfruta Paraguay!</strong> is a group on the Meetup website
-            that aims to bring people together to discover the different places
-            that Paraguay offers to promote integration, friendship and also
-            philanthropic work. It is an extension of the success of the{" "}
+            <strong>Disfruta Paraguay!</strong> is a group that aims to bring
+            people together to discover the different places that Paraguay
+            offers to promote integration, friendship and also philanthropic
+            work. It is an extension of the success of the{" "}
             <strong>Descobrindo São Paulo</strong> group, co-founded by Rafael
             Palma, in 2018.
           </p>
@@ -60,7 +61,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div style={{ height: 1000 }}></div>
+      <FooterHome />
     </div>
   );
 }
