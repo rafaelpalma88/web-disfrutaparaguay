@@ -10,7 +10,7 @@ export default function WebsiteLayout({
     <>
       <div className="flex-1">{children}</div>
 
-      <div className="bg-gray-200 py-5 text-center h-20">
+      <div className="h-20 bg-gray-200 py-5 text-center">
         <Footer />
       </div>
     </>

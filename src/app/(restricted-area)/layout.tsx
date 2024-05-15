@@ -9,7 +9,7 @@ export default function RestrictedAreaLayout({
   return (
     <>
       <div className="flex-1">
-        <div className="absolute top-0 right-0 mt-4 mr-4 flex">
+        <div className="absolute right-0 top-0 mr-4 mt-4 flex">
           <ModeToggle />
         </div>
 

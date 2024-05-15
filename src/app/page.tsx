@@ -1,13 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Header } from "./components/Header";
-import Image from "next/image";
 import { FooterHome } from "./components/FooterHome";
+import Image from "next/image";
+
+// o plugin eslint-plugin-simple-import-sort não funcionou como eu esperava. resolver isso depois
 
 export default function Home() {
   return (
     <div>
       <Header />
-      <div className="w-full flex">
+      <div className="flex w-full">
         <div
           className="h-screen w-full bg-cover bg-center"
           style={{
@@ -16,15 +18,15 @@ export default function Home() {
           }}
         >
           <div
-            className="max-w-4xl mx-auto "
+            className="mx-auto max-w-4xl "
             style={{ marginTop: "calc(50vh)" }}
           >
-            <div className="w-1/2 mt-16">
-              <span className="mb-5 inline-block font-extrabold text-3xl antialiased bg-blue-800 text-white px-2 py-2">
+            <div className="mt-16 w-1/2">
+              <span className="mb-5 inline-block bg-blue-800 px-2 py-2 text-3xl font-extrabold text-white antialiased">
                 {/* 0038A8 */}
                 Your group in Paraguay
               </span>
-              <span className="mb-5 inline-block font-semibold antialiased px-2 py-2 bg-red-600 text-white">
+              <span className="mb-5 inline-block bg-red-600 px-2 py-2 font-semibold text-white antialiased">
                 {/* D52B1E */}
                 If you're an expatriate looking to get involved in philanthropic
                 work, to explore what the country offers, or to make new
@@ -35,9 +37,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex max-w-4xl mx-auto pt-20 pb-20">
+      <div className="mx-auto flex max-w-4xl pb-20 pt-20">
         <div className="w-3/5 pr-8">
-          <p className="text-2xl font-bold mb-4">How everything started</p>
+          <p className="mb-4 text-2xl font-bold">How everything started</p>
           <p>
             <strong>Disfruta Paraguay!</strong> is a group that aims to bring
             people together to discover the different places that Paraguay

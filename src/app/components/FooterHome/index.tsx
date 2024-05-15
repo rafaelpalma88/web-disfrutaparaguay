@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function FooterHome() {
   return (
-    <ul className="flex justify-center bg-black text-white pt-10 pb-10">
+    <ul className="flex justify-center bg-black pb-10 pt-10 text-white">
       <li>
         <Link href="/privacy-policy">Privacy Policy</Link>
       </li>

@@ -17,9 +17,11 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "simple-import-sort"
     ],
     "rules": {
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "simple-import-sort/imports": "error"
     }
 }
