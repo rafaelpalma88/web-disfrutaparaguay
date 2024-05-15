@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ModeToggle } from "../ModeThemeToggle";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { HamburgerMenu } from "../HamburgerMenu";
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,11 +30,12 @@ export const Header = () => {
 
   return (
     <header
-      className={` fixed top-0 left-0 right-0 z-50 py-2 transition ${isScrolled ? "bg-background" : ""}`}
+      className={`fixed left-0 right-0 top-0 z-50 py-2 transition ${isScrolled ? "bg-background" : ""}`}
     >
+      {/* <HamburgerMenu /> */}
       {/* border-b-2 border-gray-300 */}
-      <div className="max-w-4xl mx-auto flex justify-center items-center">
-        <div className="flex items-center justify-between w-full">
+      <div className="mx-auto flex max-w-4xl items-center justify-center">
+        <div className="flex w-full items-center justify-between">
           <Link href="/">
             <Image
               src="/logoDisfrutaParaguay.png"
@@ -43,7 +45,7 @@ export const Header = () => {
             />
           </Link>
           <nav>
-            <ul className="flex justify-center items-center space-x-4">
+            <ul className="flex items-center justify-center space-x-4">
               {/* <li className="pl-2 pr-2">
                 <Link href="/">Home</Link>
               </li>
