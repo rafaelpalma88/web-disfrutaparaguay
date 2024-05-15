@@ -28,9 +28,9 @@ export default function Home() {
               </span>
               <span className="mb-5 inline-block bg-red-600 px-2 py-2 font-semibold text-white antialiased">
                 {/* D52B1E */}
-                If you're an expatriate looking to get involved in philanthropic
-                work, to explore what the country offers, or to make new
-                friends, you've found your group!
+                If you&apos;re an expatriate looking to get involved in
+                philanthropic work, to explore what the country offers, or to
+                make new friends, you&apos;ve found your group!
               </span>
               <Button className="">Join us!</Button>
             </div>

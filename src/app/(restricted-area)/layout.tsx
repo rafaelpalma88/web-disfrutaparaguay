@@ -1,6 +1,6 @@
-import "../globals.css";
-
 import { ModeToggle } from "../components/ModeThemeToggle";
+
+import "../globals.css";
 
 export default function RestrictedAreaLayout({
   children,
