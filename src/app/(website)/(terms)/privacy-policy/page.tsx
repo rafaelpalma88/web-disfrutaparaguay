@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 export default function PrivacyPolicy() {
   return (
-    <div className="mx-auto grid min-h-screen w-full max-w-[1600px] grid-rows-app gap-5 p-8">
+    <div className="grid-rows-app mx-auto grid min-h-screen w-full max-w-[1600px] gap-5 p-8">
       <h1>
         <strong>Privacy Policy</strong>
       </h1>

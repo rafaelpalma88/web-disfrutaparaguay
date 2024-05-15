@@ -1,11 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { ModeToggle } from "../ModeThemeToggle";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { HamburgerMenu } from "../HamburgerMenu";
+import Image from "next/image";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+
+// import { HamburgerMenu } from "../HamburgerMenu";
+import { ModeToggle } from "../ModeThemeToggle";
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);

@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Header } from "./components/Header";
-import { FooterHome } from "./components/FooterHome";
 import Image from "next/image";
 
-// o plugin eslint-plugin-simple-import-sort não funcionou como eu esperava. resolver isso depois
+import { Button } from "@/components/ui/button";
+
+import { FooterHome } from "./components/FooterHome";
+import { Header } from "./components/Header";
 
 export default function Home() {
   return (
