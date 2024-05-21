@@ -39,7 +39,9 @@ export default function Home() {
       </div>
       <div className="mx-auto flex max-w-4xl pb-20 pt-20">
         <div className="w-3/5 pr-8">
-          <p className="mb-4 text-2xl font-bold">How everything started</p>
+          <p className="mb-4 text-2xl font-bold tracking-tighter">
+            How everything started
+          </p>
           <p>
             <strong>Disfruta Paraguay!</strong> is a group that aims to bring
             people together to discover the different places that Paraguay
