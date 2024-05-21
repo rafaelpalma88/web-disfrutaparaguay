@@ -1,10 +1,34 @@
+"use client"; // TODO: Apartar isso posteriormente
+
 import Image from "next/image";
 import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+interface FormValues {
+  email: string;
+  password: string;
+}
+
+const signInForm = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
+
+type SignInForm = z.infer<typeof signInForm>;
+
 export default function SignIn(): JSX.Element {
+  const { register, handleSubmit } = useForm<FormValues>();
+
+  const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
+    console.log("data", data);
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="flex w-96 flex-col items-center justify-center rounded-lg border border-gray-300 p-8 shadow-md">
@@ -16,7 +40,10 @@ export default function SignIn(): JSX.Element {
             alt="Logo Disfruta Paraguay"
           />
         </Link>
-        <form className="flex w-full flex-col justify-center">
+        <form
+          onSubmit={handleSubmit(handleSignIn)}
+          className="flex w-full flex-col justify-center"
+        >
           <Label htmlFor="username" className="mb-2">
             E-mail:
           </Label>
@@ -24,6 +51,7 @@ export default function SignIn(): JSX.Element {
             type="email"
             id="email"
             className="mb-4 rounded border border-gray-300 p-2"
+            {...register("email")}
           />
 
           <Label htmlFor="password" className="mb-2">
@@ -33,6 +61,7 @@ export default function SignIn(): JSX.Element {
             type="password"
             id="password"
             className="mb-4 rounded border border-gray-300 p-2"
+            {...register("password")}
           />
 
           <button
