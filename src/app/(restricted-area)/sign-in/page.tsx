@@ -5,8 +5,10 @@ import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
+// import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+// import { useToast } from "@/components/ui/use-toast";
 
 interface FormValues {
   email: string;
@@ -21,7 +23,13 @@ const signInForm = z.object({
 type SignInForm = z.infer<typeof signInForm>;
 
 export default function SignIn(): JSX.Element {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<FormValues>();
+
+  // const { toast } = useToast();
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
     console.log("data", data);
@@ -40,6 +48,16 @@ export default function SignIn(): JSX.Element {
             alt="Logo Disfruta Paraguay"
           />
         </Link>
+        {/* <Button
+          onClick={() => {
+            toast({
+              title: "Scheduled: Catch up",
+              description: "Friday, February 10, 2023 at 5:57 PM",
+            });
+          }}
+        >
+          Show Toast
+        </Button> */}
         <form
           onSubmit={handleSubmit(handleSignIn)}
           className="flex w-full flex-col justify-center"
@@ -67,6 +85,7 @@ export default function SignIn(): JSX.Element {
           <button
             type="submit"
             className="mb-4 rounded bg-blue-500 px-4 py-2 text-white"
+            disabled={isSubmitting}
           >
             Sign In
           </button>
