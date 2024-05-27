@@ -1,11 +1,8 @@
-import { ArrowRight, Search, X } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { UserTableFilters } from "@/app/components/UserTableFilters";
+import { UserTableRow } from "@/app/components/UserTableRow";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -18,10 +15,7 @@ export default function Users() {
         <h1 className="text-3xl font-bold tracking-tight">Users</h1>
       </div>
       <div className="space-y-2.5 ">
-        <form className="flex items-center gap-2 pb-5">
-          <span className="text-sm font-semibold">Filtros</span>
-          <Input placeholder="Nome do cliente" className="h-8 w-[320px]" />
-        </form>
+        <UserTableFilters />
         <div className="rounded-md border">
           <Table>
             <TableHeader>
@@ -37,45 +31,9 @@ export default function Users() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell>
-                  <Button variant="outline" size="sm">
-                    <Search className="h-3 w-3" />
-                    <span className="sr-only">Detalhes do pedido</span>
-                  </Button>
-                </TableCell>
-                <TableCell className="font-mono text-xs font-medium">
-                  qweqwewqeqw
-                </TableCell>
-                <TableCell className="text-muted-foreground">
-                  há 15 minutos
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-slate-400" />
-                    <span className="font-medium text-muted-foreground">
-                      Pendente
-                    </span>
-                  </div>
-                </TableCell>
-                <TableCell className="font-medium">
-                  Rafael Costa Palma
-                </TableCell>
-                <TableCell className="font-medium"> R$ 149.90</TableCell>
-                <TableCell>
-                  <Button variant="outline" size="sm">
-                    <ArrowRight className="mr-2 h-3 w-3" />
-                    Aprovar
-                  </Button>
-                </TableCell>
-                <TableCell>
-                  <Button variant="ghost" size="sm">
-                    <X className="mr-2 h-3 w-3" />
-                    Cancelar
-                  </Button>
-                </TableCell>
-                <TableCell></TableCell>
-              </TableRow>
+              {Array.from({ length: 10 }).map((_, i) => {
+                return <UserTableRow key={i} />;
+              })}
             </TableBody>
           </Table>
         </div>
