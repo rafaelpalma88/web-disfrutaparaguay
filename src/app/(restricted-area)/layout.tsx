@@ -44,14 +44,13 @@ export default function RestrictedAreaLayout({
               <AccountMenu />
             </div>
           </div>
-          {/* <div>{children}</div> */}
+          <div className="pb-6 pl-6 pr-6 pt-5">{children}</div>
         </div>
       ) : (
         <div className="flex-1">
           <div className="absolute right-0 top-0 mr-4 mt-4 flex">
             <ModeToggle />
           </div>
-
           {children}
         </div>
       )}
