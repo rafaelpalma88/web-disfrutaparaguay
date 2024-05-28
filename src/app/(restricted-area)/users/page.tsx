@@ -1,3 +1,4 @@
+import { Pagination } from "@/app/components/Pagination";
 import { UserTableFilters } from "@/app/components/UserTableFilters";
 import { UserTableRow } from "@/app/components/UserTableRow";
 import {
@@ -37,6 +38,7 @@ export default function Users() {
             </TableBody>
           </Table>
         </div>
+        <Pagination pageIndex={0} perPage={10} totalCount={105} />
       </div>
     </>
   );
