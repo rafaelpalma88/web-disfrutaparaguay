@@ -2,13 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+// import { useToast } from "@/components/ui/use-toast";
+import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { signIn } from "@/api/sign-in";
 // import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import { useToast } from "@/components/ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
 
 interface FormValues {
   email: string;
@@ -31,10 +34,39 @@ export default function SignIn(): JSX.Element {
 
   // const { toast } = useToast();
 
+  const { mutateAsync: authenticate } = useMutation({
+    mutationFn: signIn,
+  });
+
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
     console.log("data", data);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const { email, password } = data;
+
+    await authenticate({ email, password });
+
+    // const token = await login(email, password);
+
+    // console.log("token - ", token);
+
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+  };
+
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await axios.post(
+        "https://api-disfruta-paraguay.onrender.com/sessions",
+        {
+          email: email,
+          password: password,
+        },
+      );
+      const token = response.data.token;
+      console.log("Token:", token);
+      return token;
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
   };
 
   return (
