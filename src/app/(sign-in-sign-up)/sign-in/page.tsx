@@ -2,16 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-// import { useToast } from "@/components/ui/use-toast";
-import axios from "axios";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { signIn } from "@/api/sign-in";
+import saveCookieLogin from "@/app/lib/save-cookie-login";
 // import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
 
 interface FormValues {
   email: string;
@@ -33,37 +33,25 @@ export default function SignIn(): JSX.Element {
   } = useForm<FormValues>();
 
   // const { toast } = useToast();
+  const router = useRouter();
 
-  const { mutateAsync: authenticate } = useMutation({
-    mutationFn: signIn,
-  });
+  // const { mutateAsync: authenticate } = useMutation({
+  //   mutationFn: signIn,
+  // });
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
     console.log("data", data);
 
-    const { email, password } = data;
-
-    await authenticate({ email, password });
-
-    // const token = await login(email, password);
-
-    // console.log("token - ", token);
-
-    // await new Promise((resolve) => setTimeout(resolve, 2000));
-  };
-
-  const login = async (email: string, password: string) => {
     try {
-      const response = await axios.post(
-        "https://api-disfruta-paraguay.onrender.com/sessions",
-        {
-          email: email,
-          password: password,
-        },
-      );
-      const token = response.data.token;
-      console.log("Token:", token);
-      return token;
+      const { email, password } = data;
+
+      const token = await signIn({ email, password });
+
+      console.log("token - ", token.data.token);
+
+      await saveCookieLogin(token.data.token);
+
+      router.push("/dashboard");
     } catch (error) {
       console.error("Error logging in:", error);
     }
@@ -93,6 +81,7 @@ export default function SignIn(): JSX.Element {
         <form
           onSubmit={handleSubmit(handleSignIn)}
           className="flex w-full flex-col justify-center"
+          method="POST"
         >
           <Label htmlFor="username" className="mb-2">
             E-mail:

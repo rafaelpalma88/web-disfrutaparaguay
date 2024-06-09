@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 
 import { Toaster } from "@/components/ui/toaster";
 import { useQueryClient } from "@/lib/useQueryClient";
+import NextAuthSessionProvider from "@/providers/sessionProvider";
 import { QueryClientProvider } from "@tanstack/react-query";
 
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -28,18 +29,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider
-            storageKey="disfrutaparaguay-theme"
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <div className="flex min-h-screen flex-col">{children}</div>
-            <Toaster />
-          </ThemeProvider>
-        </QueryClientProvider>
+        <NextAuthSessionProvider>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider
+              storageKey="disfrutaparaguay-theme"
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <div className="flex min-h-screen flex-col">{children}</div>
+              <Toaster />
+            </ThemeProvider>
+          </QueryClientProvider>
+        </NextAuthSessionProvider>
       </body>
     </html>
   );
