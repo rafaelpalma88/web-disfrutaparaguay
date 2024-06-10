@@ -10,8 +10,6 @@ export interface NavLinkProps extends LinkProps {
 export function NavLink({ children, ...props }: NavLinkProps) {
   const pathname = usePathname();
 
-  console.log("pathname", pathname);
-
   return (
     <Link
       data-current={pathname === props.href}

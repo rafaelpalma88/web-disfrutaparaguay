@@ -22,8 +22,13 @@ export const Header = () => {
       }
     };
 
+    // Definir o estado inicial
+    handleScroll();
+
+    // Adicionar um evento de rolagem
     window.addEventListener("scroll", handleScroll);
 
+    // Limpar o evento de rolagem quando o componente for desmontado
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

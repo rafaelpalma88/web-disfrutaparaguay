@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -28,21 +28,17 @@ export default function SignIn(): JSX.Element {
     formState: { isSubmitting },
   } = useForm<FormValues>();
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
     console.log("data", data);
 
     try {
       // const { email, password } = data;
-
       // const token = await signIn({ email, password });
-
       // console.log("token - ", token.data.token);
-
       // await saveCookieLogin(token.data.token);
-
-      router.push("/dashboard");
+      // router.push("/dashboard");
     } catch (error) {
       console.error("Error logging in:", error);
     }
