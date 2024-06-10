@@ -6,12 +6,8 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { signIn } from "@/api/sign-in";
-import saveCookieLogin from "@/app/lib/save-cookie-login";
-// import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import { useMutation } from "@tanstack/react-query";
 
 interface FormValues {
   email: string;
@@ -32,24 +28,19 @@ export default function SignIn(): JSX.Element {
     formState: { isSubmitting },
   } = useForm<FormValues>();
 
-  // const { toast } = useToast();
   const router = useRouter();
-
-  // const { mutateAsync: authenticate } = useMutation({
-  //   mutationFn: signIn,
-  // });
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
     console.log("data", data);
 
     try {
-      const { email, password } = data;
+      // const { email, password } = data;
 
-      const token = await signIn({ email, password });
+      // const token = await signIn({ email, password });
 
-      console.log("token - ", token.data.token);
+      // console.log("token - ", token.data.token);
 
-      await saveCookieLogin(token.data.token);
+      // await saveCookieLogin(token.data.token);
 
       router.push("/dashboard");
     } catch (error) {
@@ -63,9 +54,11 @@ export default function SignIn(): JSX.Element {
         <Link href={"/"} className="mb-4 w-3/4">
           <Image
             src="/logoDisfrutaParaguay.png"
-            width={500}
-            height={500}
+            width={250}
+            height={250}
             alt="Logo Disfruta Paraguay"
+            style={{ width: "100%", height: "auto" }}
+            priority={true}
           />
         </Link>
         {/* <Button

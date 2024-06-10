@@ -14,5 +14,4 @@ console.log("parsedEnv", parsedEnv);
 
 console.log("Error details:", parsedEnv.error);
 
-// Exportando as variáveis de ambiente validadas
 export const env = parsedEnv.data;

@@ -6,10 +6,8 @@ import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { registerUser } from "@/api/register-user";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useMutation } from "@tanstack/react-query";
 
 interface FormValues {
   name: string;
@@ -33,17 +31,16 @@ export default function SignUp(): JSX.Element {
     formState: { isSubmitting },
   } = useForm<FormValues>();
 
-  const { mutateAsync: registerUserFn } = useMutation({
-    mutationFn: registerUser,
-  });
-
   const handleSignUp: SubmitHandler<FormValues> = async (data: SignUpForm) => {
     try {
       const { name, email, password } = data;
 
-      const teste = await registerUserFn({ name, email, password });
+      // const teste = await registerUserFn({ name, email, password });
 
-      console.log("teste - ", teste);
+      console.log("name - ", name);
+      console.log("email - ", email);
+      console.log("password - ", password);
+
       setIsFormSubmitted(true);
     } catch (error) {
       console.error("Error logging in:", error);
@@ -58,9 +55,11 @@ export default function SignUp(): JSX.Element {
         <Link href={"/"} className="mb-4 w-3/4">
           <Image
             src="/logoDisfrutaParaguay.png"
-            width={500}
-            height={500}
+            width={250}
+            height={250}
             alt="Logo Disfruta Paraguay"
+            style={{ width: "100%", height: "auto" }}
+            priority={true}
           />
         </Link>
         {/* <Button

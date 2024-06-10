@@ -41,6 +41,8 @@ export const Header = () => {
               width={200}
               height={200}
               alt="Logo Disfruta Paraguay"
+              style={{ width: "auto", height: "auto", maxWidth: 200 }}
+              priority={true}
             />
           </Link>
           <nav>
