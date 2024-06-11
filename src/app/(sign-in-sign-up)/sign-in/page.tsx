@@ -1,4 +1,4 @@
-"use client"; // TODO: Apartar isso posteriormente
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { signIn } from "@/api/sign-in";
+import saveCookieLogin from "@/app/lib/save-cookie-login";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,10 +40,10 @@ export default function SignIn(): JSX.Element {
     console.log("data", data);
 
     try {
-      // const { email, password } = data;
-      // const token = await signIn({ email, password });
-      // console.log("token - ", token.data.token);
-      // await saveCookieLogin(token.data.token);
+      const { email, password } = data;
+      const token = await signIn({ email, password });
+      console.log("token - ", token.data.token);
+      await saveCookieLogin(token.data.token);
       await router.push("/dashboard");
     } catch (error) {
       console.error("Error logging in:", error);

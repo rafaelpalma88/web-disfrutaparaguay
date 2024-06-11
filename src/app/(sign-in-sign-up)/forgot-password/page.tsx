@@ -46,11 +46,7 @@ function SignInForm(): JSX.Element {
     console.log("data", data);
 
     try {
-      // const { email, password } = data;
-      // const token = await signIn({ email, password });
-      // console.log("token - ", token.data.token);
-      // await saveCookieLogin(token.data.token);
-      // router.push("/dashboard");
+      // Incluir aqui um serviço que faz o envio de e-mail para o cliente permitindo a alteraao da senha
     } catch (error) {
       console.error("Error logging in:", error);
     }
