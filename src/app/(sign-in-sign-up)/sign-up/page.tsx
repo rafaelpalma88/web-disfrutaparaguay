@@ -3,9 +3,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { registerUser } from "@/api/register-user";
+import { signIn } from "@/api/sign-in";
+import saveCookieLogin from "@/app/lib/save-cookie-login";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -25,21 +29,27 @@ type SignUpForm = z.infer<typeof signUpForm>;
 
 export default function SignUp(): JSX.Element {
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
+  const [nameUserCreated, setNameUserCreated] = useState<string>("");
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<FormValues>();
 
+  const router = useRouter();
+
   const handleSignUp: SubmitHandler<FormValues> = async (data: SignUpForm) => {
     try {
       const { name, email, password } = data;
 
-      // const teste = await registerUserFn({ name, email, password });
+      const userCreated = await registerUser({ name, email, password });
 
-      console.log("name - ", name);
-      console.log("email - ", email);
-      console.log("password - ", password);
+      console.log("userCreated", userCreated);
+
+      setNameUserCreated(userCreated?.data?.user?.name);
+
+      const token = await signIn({ email, password });
+      await saveCookieLogin(token.data.token);
 
       setIsFormSubmitted(true);
     } catch (error) {
@@ -48,6 +58,10 @@ export default function SignUp(): JSX.Element {
 
     // await new Promise((resolve) => setTimeout(resolve, 2000));
   };
+
+  async function handleGoToDashboard() {
+    await router.push("/dashboard");
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center">
@@ -73,7 +87,21 @@ export default function SignUp(): JSX.Element {
           Show Toast
         </Button> */}
         {isFormSubmitted ? (
-          <div>Submitted Form. Limpar</div>
+          <div className="flex w-full flex-col justify-center">
+            <p>
+              Welcome {nameUserCreated}! Now you are in the row to be a member
+              of <strong>Disfruta Paraguay!</strong>
+            </p>
+            <p>Please wait our contact accepting your filiation!</p>
+            <button
+              style={{ marginTop: 20 }}
+              type="submit"
+              className="mb-4 rounded bg-blue-500 px-4 py-2 text-white"
+              onClick={handleGoToDashboard}
+            >
+              Go to dashboard
+            </button>
+          </div>
         ) : (
           <form
             onSubmit={handleSubmit(handleSignUp)}
@@ -115,7 +143,7 @@ export default function SignUp(): JSX.Element {
               className="mb-4 rounded bg-blue-500 px-4 py-2 text-white"
               disabled={isSubmitting}
             >
-              Sign In
+              Sign Up
             </button>
 
             <div className="flex justify-end">
@@ -125,11 +153,9 @@ export default function SignUp(): JSX.Element {
             </div>
 
             <div className="mt-8 text-center">
-              <p>Still don&apos;t have your account?</p>
-              <Link href="/sign-up">
-                <p className="font-bold underline">
-                  Would you like to create one now?
-                </p>
+              <p>Still have your account?</p>
+              <Link href="/sign-in">
+                <p className="font-bold underline">Come back to Sign-in page</p>
               </Link>
             </div>
           </form>

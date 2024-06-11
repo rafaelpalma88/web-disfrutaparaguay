@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Eye, EyeSlash } from "phosphor-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -33,6 +35,8 @@ export default function SignIn(): JSX.Element {
   } = useForm<SignInForm>({
     resolver: zodResolver(signInForm),
   });
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -90,15 +94,21 @@ export default function SignIn(): JSX.Element {
           <Label htmlFor="password" className="mb-2">
             Password:
           </Label>
-          {errors.password && (
-            <p style={{ color: "red" }}>{errors.password.message}</p>
-          )}
-          <Input
-            type="password"
-            id="password"
-            className="mb-4 rounded border border-gray-300 p-2"
-            {...register("password")}
-          />
+          <div className="relative">
+            <Input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              className="mb-4 rounded border border-gray-300 p-2 pr-10"
+              {...register("password")}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-2 top-3"
+            >
+              {showPassword ? <Eye /> : <EyeSlash />}
+            </button>
+          </div>
 
           <button
             type="submit"
