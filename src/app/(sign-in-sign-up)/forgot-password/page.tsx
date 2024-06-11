@@ -1,8 +1,9 @@
 "use client"; // TODO: Apartar isso posteriormente
 
+import { Suspense, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -12,29 +13,36 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 interface FormValues {
   email: string;
-  password: string;
 }
 
 const signInForm = z.object({
   email: z.string().email(),
-  password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
-type SignInForm = z.infer<typeof signInForm>;
+type ForgotPasswordForm = z.infer<typeof signInForm>;
 
-export default function SignIn(): JSX.Element {
+function SignInForm(): JSX.Element {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
-    getValues,
-  } = useForm<SignInForm>({
+  } = useForm<ForgotPasswordForm>({
     resolver: zodResolver(signInForm),
   });
 
-  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
+  useEffect(() => {
+    const email = searchParams.get("email");
+    if (email) {
+      setValue("email", String(email));
+    }
+  }, [searchParams, setValue]);
+
+  const handleSignIn: SubmitHandler<FormValues> = async (
+    data: ForgotPasswordForm,
+  ) => {
     console.log("data", data);
 
     try {
@@ -42,16 +50,11 @@ export default function SignIn(): JSX.Element {
       // const token = await signIn({ email, password });
       // console.log("token - ", token.data.token);
       // await saveCookieLogin(token.data.token);
-      await router.push("/dashboard");
+      // router.push("/dashboard");
     } catch (error) {
       console.error("Error logging in:", error);
     }
   };
-
-  function handleRedirectToForgotPassword() {
-    const email = getValues("email");
-    router.push(`/forgot-password?email=${encodeURIComponent(email)}`);
-  }
 
   return (
     <div className="flex min-h-screen items-center justify-center">
@@ -72,6 +75,9 @@ export default function SignIn(): JSX.Element {
           className="flex w-full flex-col justify-center"
           method="POST"
         >
+          <p style={{ marginBottom: 10 }}>
+            Type your e-mail here to reset your password
+          </p>
           <Label htmlFor="username" className="mb-2">
             E-mail:
           </Label>
@@ -85,34 +91,18 @@ export default function SignIn(): JSX.Element {
             {...register("email")}
           />
 
-          <Label htmlFor="password" className="mb-2">
-            Password:
-          </Label>
-          {errors.password && (
-            <p style={{ color: "red" }}>{errors.password.message}</p>
-          )}
-          <Input
-            type="password"
-            id="password"
-            className="mb-4 rounded border border-gray-300 p-2"
-            {...register("password")}
-          />
-
           <button
             type="submit"
             className="mb-4 rounded bg-blue-500 px-4 py-2 text-white"
             disabled={isSubmitting}
           >
-            Sign In
+            Reset Password
           </button>
 
           <div className="flex justify-end">
-            <p
-              className="mt-2 underline"
-              onClick={handleRedirectToForgotPassword}
-            >
-              Forgot password ?
-            </p>
+            <Link href="/sign-in">
+              <p className="mt-2 underline">Come back to Sign-In</p>
+            </Link>
           </div>
 
           <div className="mt-8 text-center">
@@ -126,5 +116,13 @@ export default function SignIn(): JSX.Element {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function SignIn(): JSX.Element {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignInForm />
+    </Suspense>
   );
 }
