@@ -38,8 +38,8 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="mx-auto flex max-w-4xl flex-col p-5 pb-10 pt-10 sm:flex-row sm:p-0 sm:pb-20 sm:pt-20">
-        <div className=" w-full pr-10 sm:mt-0 sm:w-1/2 ">
+      <div className="flex flex-col p-5 pb-10 pt-10 sm:mx-auto sm:max-w-4xl sm:flex-row sm:p-0 sm:pb-20 sm:pt-20">
+        <div className=" w-full sm:mt-0 sm:w-1/2 sm:pr-10 ">
           <p className="mb-4 text-2xl font-bold tracking-tighter">
             How everything started
           </p>
