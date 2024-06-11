@@ -37,11 +37,15 @@ export default function SignIn(): JSX.Element {
   });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isAuthenticationError, setIsAuthenticationError] =
+    useState<boolean>(false);
+  // const [errorMessage, setErrorMessage] = useState<string>("");
 
   const router = useRouter();
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
     console.log("data", data);
+    setIsAuthenticationError(false);
 
     try {
       const { email, password } = data;
@@ -50,6 +54,13 @@ export default function SignIn(): JSX.Element {
       await saveCookieLogin(token.data.token);
       await router.push("/dashboard");
     } catch (error) {
+      setIsAuthenticationError(true);
+      // TODO: Criar um tratamento de erros melhor
+      // if (error?.response?.data?.message) {
+      //   setErrorMessage("Invalid credentials");
+      // } else {
+      //   setErrorMessage("An error occurred. Please try again.");
+      // }
       console.error("Error logging in:", error);
     }
   };
@@ -78,6 +89,10 @@ export default function SignIn(): JSX.Element {
           className="flex w-full flex-col justify-center"
           method="POST"
         >
+          {isAuthenticationError && (
+            // <p style={{ color: "red" }}>{errorMessage}</p>
+            <p style={{ color: "red" }}>Erro ao fazer login</p>
+          )}
           <Label htmlFor="username" className="mb-2">
             E-mail:
           </Label>
@@ -90,10 +105,12 @@ export default function SignIn(): JSX.Element {
             className="mb-4 rounded border border-gray-300 p-2"
             {...register("email")}
           />
-
           <Label htmlFor="password" className="mb-2">
             Password:
           </Label>
+          {errors.password && (
+            <p style={{ color: "red" }}>{errors.password.message}</p>
+          )}
           <div className="relative">
             <Input
               type={showPassword ? "text" : "password"}
@@ -109,7 +126,6 @@ export default function SignIn(): JSX.Element {
               {showPassword ? <Eye /> : <EyeSlash />}
             </button>
           </div>
-
           <button
             type="submit"
             className="mb-4 rounded bg-blue-500 px-4 py-2 text-white"
@@ -117,7 +133,6 @@ export default function SignIn(): JSX.Element {
           >
             Sign In
           </button>
-
           <div className="flex justify-end">
             <p
               className="mt-2 underline"
@@ -126,7 +141,6 @@ export default function SignIn(): JSX.Element {
               Forgot password ?
             </p>
           </div>
-
           <div className="mt-8 text-center">
             <p>Still don&apos;t have your account?</p>
             <Link href="/sign-up">

@@ -22,7 +22,7 @@ interface FormValues {
 const signUpForm = z.object({
   name: z.string(),
   email: z.string().email(),
-  password: z.string(),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
 type SignUpForm = z.infer<typeof signUpForm>;
@@ -33,7 +33,7 @@ export default function SignUp(): JSX.Element {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm<FormValues>();
 
   const router = useRouter();
@@ -111,6 +111,9 @@ export default function SignUp(): JSX.Element {
             <Label htmlFor="name" className="mb-2">
               Nome completo:
             </Label>
+            {errors.name && (
+              <p style={{ color: "red" }}>{errors.name.message}</p>
+            )}
             <Input
               type="name"
               id="name"
@@ -121,6 +124,9 @@ export default function SignUp(): JSX.Element {
             <Label htmlFor="username" className="mb-2">
               E-mail:
             </Label>
+            {errors.email && (
+              <p style={{ color: "red" }}>{errors.email.message}</p>
+            )}
             <Input
               type="email"
               id="email"
@@ -131,6 +137,9 @@ export default function SignUp(): JSX.Element {
             <Label htmlFor="password" className="mb-2">
               Password:
             </Label>
+            {errors.password && (
+              <p style={{ color: "red" }}>{errors.password.message}</p>
+            )}
             <Input
               type="password"
               id="password"

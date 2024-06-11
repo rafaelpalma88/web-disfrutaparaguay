@@ -14,6 +14,7 @@ export default function Home() {
           className="h-screen w-full bg-cover bg-center"
           style={{
             backgroundImage: "url('/friends.jpg')",
+            backgroundPosition: "center",
             height: "calc(100vh - 110)",
           }}
         >
@@ -21,8 +22,8 @@ export default function Home() {
             className="mx-auto max-w-4xl "
             style={{ marginTop: "calc(50vh)" }}
           >
-            <div className="mt-16 w-1/2">
-              <span className="mb-5 inline-block bg-blue-800 px-2 py-2 text-3xl font-extrabold text-white antialiased">
+            <div className="mt-16 w-full p-5 sm:w-1/2 sm:p-0">
+              <span className="mb-5 inline-block bg-blue-800 px-2 py-2  text-3xl font-extrabold text-white antialiased">
                 {/* 0038A8 */}
                 Your group in Paraguay
               </span>
@@ -37,8 +38,8 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="mx-auto flex max-w-4xl pb-20 pt-20">
-        <div className="w-3/5 pr-8">
+      <div className="mx-auto flex max-w-4xl flex-col p-5 pb-10 pt-10 sm:flex-row sm:p-0 sm:pb-20 sm:pt-20">
+        <div className=" w-full pr-10 sm:mt-0 sm:w-1/2 ">
           <p className="mb-4 text-2xl font-bold tracking-tighter">
             How everything started
           </p>
@@ -55,13 +56,12 @@ export default function Home() {
             of monthly meetings, including philanthropic activities.
           </p>
         </div>
-        <div>
+        <div className="mt-16 w-full sm:mt-0 sm:w-1/2">
           <Image
             src="/descobrindosaopaulo.jpeg"
             width={500}
             height={500}
             alt="Descobrindo São Paulo"
-            // style={{ width: "70%" }}
           />
         </div>
       </div>
