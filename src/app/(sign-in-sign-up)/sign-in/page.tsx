@@ -8,6 +8,7 @@ import { z } from "zod";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface FormValues {
   email: string;
@@ -16,7 +17,7 @@ interface FormValues {
 
 const signInForm = z.object({
   email: z.string().email(),
-  password: z.string(),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
 type SignInForm = z.infer<typeof signInForm>;
@@ -25,8 +26,10 @@ export default function SignIn(): JSX.Element {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<FormValues>();
+    formState: { errors, isSubmitting },
+  } = useForm<SignInForm>({
+    resolver: zodResolver(signInForm),
+  });
 
   // const router = useRouter();
 
@@ -57,16 +60,7 @@ export default function SignIn(): JSX.Element {
             priority={true}
           />
         </Link>
-        {/* <Button
-          onClick={() => {
-            toast({
-              title: "Scheduled: Catch up",
-              description: "Friday, February 10, 2023 at 5:57 PM",
-            });
-          }}
-        >
-          Show Toast
-        </Button> */}
+
         <form
           onSubmit={handleSubmit(handleSignIn)}
           className="flex w-full flex-col justify-center"
@@ -75,6 +69,9 @@ export default function SignIn(): JSX.Element {
           <Label htmlFor="username" className="mb-2">
             E-mail:
           </Label>
+          {errors.email && (
+            <p style={{ color: "red" }}>{errors.email.message}</p>
+          )}
           <Input
             type="email"
             id="email"
@@ -85,6 +82,9 @@ export default function SignIn(): JSX.Element {
           <Label htmlFor="password" className="mb-2">
             Password:
           </Label>
+          {errors.password && (
+            <p style={{ color: "red" }}>{errors.password.message}</p>
+          )}
           <Input
             type="password"
             id="password"
