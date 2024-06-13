@@ -61,7 +61,7 @@ export const Header = () => {
                   <Button>Sign In</Button>
                 </Link>
               </li>
-              <li className="pl-2 pr-2">
+              <li className="pl-1 pr-1 sm:pl-2 sm:pr-2">
                 <ModeToggle />
               </li>
             </ul>

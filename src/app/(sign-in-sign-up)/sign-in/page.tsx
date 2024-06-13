@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 import { Eye, EyeSlash } from "phosphor-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -37,15 +38,15 @@ export default function SignIn(): JSX.Element {
   });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [isAuthenticationError, setIsAuthenticationError] =
-    useState<boolean>(false);
-  // const [errorMessage, setErrorMessage] = useState<string>("");
+  const [authenticationError, setAuthenticationError] = useState<string | null>(
+    null,
+  );
 
   const router = useRouter();
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
     console.log("data", data);
-    setIsAuthenticationError(false);
+    setAuthenticationError(null);
 
     try {
       const { email, password } = data;
@@ -54,14 +55,12 @@ export default function SignIn(): JSX.Element {
       await saveCookieLogin(token.data.token);
       await router.push("/dashboard");
     } catch (error) {
-      setIsAuthenticationError(true);
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        setAuthenticationError(error.response.data.message);
+      } else {
+        setAuthenticationError("Erro ao fazer login");
+      }
       // TODO: Criar um tratamento de erros melhor
-      // if (error?.response?.data?.message) {
-      //   setErrorMessage("Invalid credentials");
-      // } else {
-      //   setErrorMessage("An error occurred. Please try again.");
-      // }
-      console.error("Error logging in:", error);
     }
   };
 
@@ -72,7 +71,7 @@ export default function SignIn(): JSX.Element {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="flex w-96 flex-col items-center justify-center rounded-lg border border-gray-300 p-8 shadow-md">
+      <div className="flex w-96 flex-col items-center justify-center rounded-lg p-8 sm:border sm:border-gray-300 sm:shadow-md">
         <Link href={"/"} className="mb-4 w-3/4">
           <Image
             src="/logoDisfrutaParaguay.png"
@@ -89,9 +88,8 @@ export default function SignIn(): JSX.Element {
           className="flex w-full flex-col justify-center"
           method="POST"
         >
-          {isAuthenticationError && (
-            // <p style={{ color: "red" }}>{errorMessage}</p>
-            <p style={{ color: "red" }}>Erro ao fazer login</p>
+          {authenticationError && (
+            <p style={{ color: "red" }}>{authenticationError}</p>
           )}
           <Label htmlFor="username" className="mb-2">
             E-mail:

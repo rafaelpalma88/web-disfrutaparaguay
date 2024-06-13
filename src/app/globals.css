@@ -67,6 +67,10 @@
 }
 
 @layer base {
+  html {
+    font-size: 14px; /* Define a fonte padrão */
+  }
+
   * {
     @apply border-border;
   }
