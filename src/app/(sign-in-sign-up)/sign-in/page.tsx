@@ -45,13 +45,11 @@ export default function SignIn(): JSX.Element {
   const router = useRouter();
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
-    console.log("data", data);
     setAuthenticationError(null);
 
     try {
       const { email, password } = data;
       const token = await signIn({ email, password });
-      console.log("token - ", token.data.token);
       await saveCookieLogin(token.data.token);
       await router.push("/dashboard");
     } catch (error) {
@@ -133,7 +131,7 @@ export default function SignIn(): JSX.Element {
           </button>
           <div className="flex justify-end">
             <p
-              className="mt-2 underline"
+              className="mt-2 cursor-pointer underline"
               onClick={handleRedirectToForgotPassword}
             >
               Forgot password ?

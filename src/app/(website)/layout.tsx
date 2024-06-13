@@ -1,4 +1,4 @@
-import { Footer } from "../components/Footer";
+// import { Footer } from "../components/Footer";
 
 import "../globals.css";
 
@@ -11,9 +11,9 @@ export default function WebsiteLayout({
     <>
       <div className="flex-1">{children}</div>
 
-      <div className="h-20 bg-gray-200 py-5 text-center">
+      {/* <div className="h-20  py-5 text-center">
         <Footer />
-      </div>
+      </div> */}
     </>
   );
 }

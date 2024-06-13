@@ -155,12 +155,6 @@ export default function SignUp(): JSX.Element {
               Sign Up
             </button>
 
-            <div className="flex justify-end">
-              <Link href="/forgot-password">
-                <p className="mt-2 underline">Forgot password ?</p>
-              </Link>
-            </div>
-
             <div className="mt-8 text-center">
               <p>Still have your account?</p>
               <Link href="/sign-in">
