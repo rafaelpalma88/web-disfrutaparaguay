@@ -1,27 +1,38 @@
 import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+// import { NextResponse } from "next/server";
+import axios from "axios";
 // import jwt from "jsonwebtoken";
 
-export function middleware(request: NextRequest) {
+// interface Token {
+//   name: string;
+//   value: string;
+// }
+
+export async function middleware(request: NextRequest) {
   const token = request.cookies.get("@web-disfrutaparaguay");
-  console.log("dentro de middleware: xxxx", token);
 
-  if (!token) {
-    console.log("!token");
-    return NextResponse.redirect(new URL("/sign-in", request.url));
+  if (token) {
+    console.log("token.value:", token.value);
+
+    try {
+      const response = await axios.post(
+        "https://api-disfruta-paraguay.onrender.com/me",
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token.value}`,
+          },
+        },
+      );
+      console.log("Response:", response.data);
+      console.log("o token é valido");
+      //   return NextResponse.next();
+    } catch (err) {
+      console.log("o token é invalido", err);
+      //   return NextResponse.redirect(new URL("/sign-in", request.url));
+      //   return NextResponse.redirect(`/sign-in`);
+    }
   }
-
-  // try {
-  //   const decoded = jwt.verify(token.value, "apidisfrutaparaguaysecret"); //TODO: ajustar isso
-  //   console.log("Token is valid:", decoded);
-
-  //   // TODO: Finalizar essa parte de decodificação do token
-  //   return NextResponse.next();
-  // } catch (err) {
-  //   console.log("err", err);
-  //   // Se o token for inválido, redirecione para a página de login
-  //   return NextResponse.redirect(`/sign-in`);
-  // }
 }
 
 export const config = {

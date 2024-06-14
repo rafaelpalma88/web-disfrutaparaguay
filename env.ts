@@ -8,10 +8,10 @@ const envSchema = z.object({
 
 const parsedEnv = envSchema.safeParse(process.env);
 
-console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
+// console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
 
-console.log("parsedEnv", parsedEnv);
+// console.log("parsedEnv", parsedEnv);
 
-console.log("Error details:", parsedEnv.error);
+// console.log("Error details:", parsedEnv.error);
 
 export const env = parsedEnv.data;

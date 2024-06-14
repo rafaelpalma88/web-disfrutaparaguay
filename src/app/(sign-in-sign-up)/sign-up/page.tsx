@@ -44,7 +44,7 @@ export default function SignUp(): JSX.Element {
 
       const userCreated = await registerUser({ name, email, password });
 
-      console.log("userCreated", userCreated);
+      // console.log("userCreated", userCreated);
 
       setNameUserCreated(userCreated?.data?.user?.name);
 
