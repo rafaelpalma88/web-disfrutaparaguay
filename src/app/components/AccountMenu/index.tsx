@@ -1,6 +1,7 @@
 "use client";
 
-import { Building, ChevronDown, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ChevronDown, LogOut } from "lucide-react";
 
 import { useAuth } from "@/app/context/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function AccountMenu() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
+
+  const router = useRouter();
+
+  async function handleSignOut() {
+    await signOut();
+    await router.push("/sign-in");
+  }
 
   return (
     <DropdownMenu>
@@ -35,11 +43,15 @@ export function AccountMenu() {
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        {/* <DropdownMenuItem>
           <Building className="mr-2 h-4 w-4" />
           <span className="text-foreground">Perfil da loja</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem className="text-rose-500 dark:text-rose-400">
+        </DropdownMenuItem> */}
+        <DropdownMenuItem
+          className="text-rose-500 dark:text-rose-400"
+          onClick={handleSignOut}
+          style={{ cursor: "pointer" }}
+        >
           <LogOut className="mr-2 h-4 w-4" />
           <span>Sair</span>
         </DropdownMenuItem>

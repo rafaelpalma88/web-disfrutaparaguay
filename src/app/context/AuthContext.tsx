@@ -22,7 +22,7 @@ interface AuthContextData {
   user: User | null;
   saveUserInfos: (data: User) => void;
   // signIn: (data: User) => void;
-  // signOut: () => void;
+  signOut: () => void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -50,18 +50,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(user);
   };
 
-  // const signIn = (userData: User) => {
+  // const signIn = (user: User) => {
   //   setUser(userData);
   //   localStorage.setItem("@web-disfrutaparaguay", JSON.stringify(userData));
   // };
 
-  // const signOut = () => {
-  //   setUser(null);
-  //   localStorage.removeItem("@web-disfrutaparaguay");
-  // };
+  const signOut = () => {
+    setUser(null);
+    localStorage.removeItem("@web-disfrutaparaguay");
+  };
 
   return (
-    <AuthContext.Provider value={{ user, saveUserInfos }}>
+    <AuthContext.Provider value={{ user, signOut, saveUserInfos }}>
       {/* <AuthContext.Provider value={{ user, saveUserInfos, signIn, signOut }}> */}
       {children}
     </AuthContext.Provider>

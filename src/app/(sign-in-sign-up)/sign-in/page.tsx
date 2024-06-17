@@ -157,7 +157,7 @@ export default function SignIn(): JSX.Element {
           </div>
           <button
             type="submit"
-            className="mb-4 rounded bg-blue-500 px-4 py-2 text-white"
+            className="mb-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
             disabled={isSubmitting}
           >
             Sign In
