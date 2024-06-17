@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -20,9 +21,19 @@ interface FormValues {
 }
 
 const signUpForm = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  password: z.string().min(8, "Password must be at least 8 characters long"),
+  name: z
+    .string()
+    .min(2, "O nome precisa ter no mínimo 2 caracteres")
+    .max(30, "O nome não pode ter mais de 30 caracteres"),
+  email: z
+    .string()
+    .email()
+    .min(2, "O nome precisa ter no mínimo 2 caracteres")
+    .max(50, "O nome não pode ter mais de 50 caracteres"),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .max(10, "Password must be until 10 characters long"),
 });
 
 type SignUpForm = z.infer<typeof signUpForm>;
@@ -30,6 +41,7 @@ type SignUpForm = z.infer<typeof signUpForm>;
 export default function SignUp(): JSX.Element {
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
   const [nameUserCreated, setNameUserCreated] = useState<string>("");
+  const [signUpError, setSignUpError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -39,12 +51,12 @@ export default function SignUp(): JSX.Element {
   const router = useRouter();
 
   const handleSignUp: SubmitHandler<FormValues> = async (data: SignUpForm) => {
+    setSignUpError(null);
+
     try {
       const { name, email, password } = data;
 
       const userCreated = await registerUser({ name, email, password });
-
-      // console.log("userCreated", userCreated);
 
       setNameUserCreated(userCreated?.data?.user?.name);
 
@@ -53,7 +65,11 @@ export default function SignUp(): JSX.Element {
 
       setIsFormSubmitted(true);
     } catch (error) {
-      console.error("Error logging in:", error);
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        setSignUpError(error.response.data.message);
+      } else {
+        setSignUpError("Erro ao fazer o registro");
+      }
     }
 
     // await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -108,6 +124,7 @@ export default function SignUp(): JSX.Element {
             className="flex w-full flex-col justify-center"
             method="POST"
           >
+            {signUpError && <p style={{ color: "red" }}>{signUpError}</p>}
             <Label htmlFor="name" className="mb-2">
               Nome completo:
             </Label>

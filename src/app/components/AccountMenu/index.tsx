@@ -1,5 +1,8 @@
+"use client";
+
 import { Building, ChevronDown, LogOut } from "lucide-react";
 
+import { useAuth } from "@/app/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,6 +14,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function AccountMenu() {
+  const { user } = useAuth();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -18,15 +23,15 @@ export function AccountMenu() {
           variant="outline"
           className="flex select-none items-center gap-2"
         >
-          Pizza Shop
+          {user?.name}
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col">
-          <span>Rafael Costa Palma</span>
+          <span>{user?.name}</span>
           <span className="text-xs font-normal text-muted-foreground">
-            rafaelcostapalma@protonmail.com
+            {user?.email}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
