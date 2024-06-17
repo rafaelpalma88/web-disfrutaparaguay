@@ -9,6 +9,8 @@ import {
   useState,
 } from "react";
 
+import removeCookieLogin from "../lib/remove-cookie-login";
+
 interface User {
   id: string;
   name: string;
@@ -55,9 +57,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   //   localStorage.setItem("@web-disfrutaparaguay", JSON.stringify(userData));
   // };
 
-  const signOut = () => {
-    setUser(null);
-    localStorage.removeItem("@web-disfrutaparaguay");
+  const signOut = async () => {
+    await setUser(null);
+    await removeCookieLogin();
   };
 
   return (

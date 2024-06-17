@@ -2,15 +2,16 @@
 
 import { cookies } from "next/headers";
 
-async function saveCookieLogin(token: string) {
-  await cookies().set({
+async function removeCookieLogin() {
+  cookies().set({
     name: "@web-disfrutaparaguay",
-    value: token,
+    value: "",
     httpOnly: true,
     path: "/",
     secure: true,
     sameSite: "strict",
+    expires: new Date(0), // Expire the cookie immediately
   });
 }
 
-export default saveCookieLogin;
+export default removeCookieLogin;
