@@ -1,5 +1,5 @@
 import { Pagination } from "@/app/components/Pagination";
-// import { UserTableFilters } from "@/app/components/UserTableFilters";
+import { UserTableFilters } from "@/app/components/UserTableFilters";
 import { UserTableRow } from "@/app/components/UserTableRow";
 import {
   Table,
@@ -9,14 +9,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export default async function Users() {
+export default function Events() {
   return (
     <>
       <div className="mb-5 flex flex-col gap-4">
         <h1 className="text-3xl font-bold tracking-tight">Users</h1>
       </div>
       <div className="space-y-2.5 ">
-        {/* <UserTableFilters /> */}
+        <UserTableFilters />
         <div className="rounded-md border">
           <Table>
             <TableHeader>

@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 
 import { ThemeProvider } from "./components/ThemeProvider";
-import { AuthProvider } from "./context/AuthContext";
 
 import "./globals.css";
 
@@ -30,9 +29,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>
-            <div className="flex min-h-screen flex-col">{children}</div>
-          </AuthProvider>
+          <div className="flex min-h-screen flex-col">{children}</div>
           <Toaster />
         </ThemeProvider>
       </body>

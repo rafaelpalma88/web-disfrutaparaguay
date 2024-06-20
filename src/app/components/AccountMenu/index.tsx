@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { ChevronDown, LogOut } from "lucide-react";
 
-import { useAuth } from "@/app/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,12 +14,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function AccountMenu() {
-  const { user, signOut } = useAuth();
-
   const router = useRouter();
 
   async function handleSignOut() {
-    await signOut();
     await router.push("/sign-in");
   }
 
@@ -31,15 +27,15 @@ export function AccountMenu() {
           variant="outline"
           className="flex select-none items-center gap-2"
         >
-          {user?.name}
+          Rafael Costa Palma
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col">
-          <span>{user?.name}</span>
+          <span> Rafael Costa Palma</span>
           <span className="text-xs font-normal text-muted-foreground">
-            {user?.email}
+            rafaelcostapalma@protonmail.com
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

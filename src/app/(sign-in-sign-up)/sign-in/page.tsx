@@ -4,14 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import axios, { AxiosError } from "axios";
 import { Eye, EyeSlash } from "phosphor-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { signIn } from "@/api/sign-in";
-import { useAuth } from "@/app/context/AuthContext";
-import saveCookieLogin from "@/app/lib/save-cookie-login";
+import { signIn } from "@/auth/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -45,54 +42,72 @@ export default function SignIn(): JSX.Element {
     resolver: zodResolver(signInForm),
   });
 
-  const { saveUserInfos } = useAuth();
+  // const { saveUserInfos, saveUserToken } = useAuth();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [authenticationError, setAuthenticationError] = useState<string | null>(
-    null,
-  );
+  // const [authenticationError, setAuthenticationError] = useState<string | null>(
+  //   null,
+  // );
 
   const router = useRouter();
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
-    setAuthenticationError(null);
-
     try {
-      const { email, password } = data;
-      const token = await signIn({ email, password });
-      await saveCookieLogin(token.data.token);
-
-      try {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/me`, // TODO: Ajustar esse .env para env.js
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${token.data.token}`,
-            },
-          },
-        );
-        saveUserInfos(response.data.user);
-      } catch (error) {
-        if (error instanceof AxiosError && error.response?.data?.message) {
-          // setSignUpError(error.response.data.message);
-          console.log("error", error);
-        } else {
-          // setSignUpError("Erro ao fazer o registro");
-          console.log("error");
-        }
-      }
-
-      // aqui vou descritografar o token ou chamar o /me ou coloco o token pra trazer o nome
+      await signIn({ email: data.email, password: data.password });
 
       await router.push("/dashboard");
     } catch (error) {
-      if (error instanceof AxiosError && error.response?.data?.message) {
-        setAuthenticationError(error.response.data.message);
-      } else {
-        setAuthenticationError("Erro ao fazer login");
+      if (error) {
+        // switch (error.type) {
+        //   case "CredentialsSignin":
+        //     return "Invalid credentials.";
+        //   default:
+        //     return "Something went wrong.";
+        // }
+        console.log(error);
       }
-      // TODO: Criar um tratamento de erros melhor
+      throw error;
     }
+
+    //   setAuthenticationError(null);
+
+    //   try {
+    //     const { email, password } = data;
+    //     const token = await signIn({ email, password });
+    //     await saveCookieUser(token.data.token);
+
+    //     try {
+    //       const response = await axios.post(
+    //         `${process.env.NEXT_PUBLIC_API_URL}/me`, // TODO: Ajustar esse .env para env.js
+    //         null,
+    //         {
+    //           headers: {
+    //             Authorization: `Bearer ${token.data.token}`,
+    //           },
+    //         },
+    //       );
+    //       await saveUserInfos(response.data.user);
+    //       await saveUserToken(token.data.token);
+    //     } catch (error) {
+    //       if (error instanceof AxiosError && error.response?.data?.message) {
+    //         // setSignUpError(error.response.data.message);
+    //         console.log("error", error);
+    //       } else {
+    //         // setSignUpError("Erro ao fazer o registro");
+    //         console.log("error");
+    //       }
+    //     }
+
+    //     // aqui vou descritografar o token ou chamar o /me ou coloco o token pra trazer o nome
+
+    //     await router.push("/dashboard");
+    //   } catch (error) {
+    //     if (error instanceof AxiosError && error.response?.data?.message) {
+    //       setAuthenticationError(error.response.data.message);
+    //     } else {
+    //       setAuthenticationError("Erro ao fazer login");
+    //     }
+    //     // TODO: Criar um tratamento de erros melhor
+    //   }
   };
 
   function handleRedirectToForgotPassword() {
@@ -119,9 +134,9 @@ export default function SignIn(): JSX.Element {
           className="flex w-full flex-col justify-center"
           method="POST"
         >
-          {authenticationError && (
+          {/* {authenticationError && (
             <p style={{ color: "red" }}>{authenticationError}</p>
-          )}
+          )} */}
           <Label htmlFor="username" className="mb-2">
             E-mail:
           </Label>
