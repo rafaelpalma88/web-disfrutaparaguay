@@ -16,8 +16,8 @@ export const nextAuthOptions: NextAuthOptions = {
         if (credentials) {
           try {
             const response = await axios.post(
-              `http://localhost:4000/sessions`,
-              // `${process.env.NEXT_PUBLIC_API_URL}/sessions`, TODO: resolver variaveis de ambiente
+              // `http://localhost:4000/sessions`,
+              `${process.env.API_URL}/sessions`, //TODO: resolver variaveis de ambiente
               {
                 email: credentials.email,
                 password: credentials.password,
