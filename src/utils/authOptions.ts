@@ -17,7 +17,7 @@ export const nextAuthOptions: NextAuthOptions = {
           try {
             const response = await axios.post(
               // `http://localhost:4000/sessions`,
-              `${process.env.API_URL}/sessions`, //TODO: resolver variaveis de ambiente
+              `https://api-disfruta-paraguay.onrender.com/sessions`, //TODO: resolver variaveis de ambiente
               {
                 email: credentials.email,
                 password: credentials.password,
