@@ -38,7 +38,7 @@ export const nextAuthOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/sign-in",
+    signIn: "https://disfrutaparaguay.com/sign-in",
   },
   callbacks: {
     async jwt({ token, user }) {
