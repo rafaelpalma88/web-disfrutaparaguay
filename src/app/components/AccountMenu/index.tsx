@@ -31,7 +31,7 @@ export async function AccountMenu() {
         <DropdownMenuLabel className="flex flex-col">
           <span>{session?.user?.name && session?.user?.name}</span>
           <span className="text-xs font-normal text-muted-foreground">
-            {session?.user?.name && session?.user?.name}
+            {session?.user?.email && session?.user?.email}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
