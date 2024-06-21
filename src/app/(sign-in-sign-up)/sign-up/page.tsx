@@ -9,9 +9,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { registerUser } from "@/api/register-user";
-import { signIn } from "@/api/sign-in";
-import { useAuth } from "@/app/context/AuthContext";
-import saveCookieLogin from "@/app/lib/save-cookie-login";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -51,8 +48,6 @@ export default function SignUp(): JSX.Element {
 
   const router = useRouter();
 
-  const { saveUserInfos } = useAuth();
-
   const handleSignUp: SubmitHandler<FormValues> = async (data: SignUpForm) => {
     setSignUpError(null);
 
@@ -63,10 +58,7 @@ export default function SignUp(): JSX.Element {
 
       setNameUserCreated(userCreated?.data?.user?.name);
 
-      const token = await signIn({ email, password });
-      await saveCookieLogin(token.data.token);
-
-      await saveUserInfos(userCreated?.data?.user);
+      // const token = await signIn({ email, password });
 
       setIsFormSubmitted(true);
     } catch (error) {

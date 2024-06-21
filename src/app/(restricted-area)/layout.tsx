@@ -1,6 +1,9 @@
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 import { Home, Pizza, UtensilsCrossed } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
+import { nextAuthOptions } from "@/utils/authOptions";
 
 import { AccountMenu } from "../components/AccountMenu";
 import { ModeToggle } from "../components/ModeThemeToggle";
@@ -8,11 +11,16 @@ import { NavLink } from "../components/NavLink";
 
 import "../globals.css";
 
-export default function RestrictedAreaLayout({
+export default async function RestrictedAreaLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(nextAuthOptions);
+
+  if (!session) {
+    redirect("/sign-in");
+  }
   return (
     <>
       <div>

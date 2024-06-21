@@ -1,17 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import axios, { AxiosError } from "axios";
-import { Eye, EyeSlash } from "phosphor-react";
+import { signIn } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { signIn } from "@/api/sign-in";
-import { useAuth } from "@/app/context/AuthContext";
-import saveCookieLogin from "@/app/lib/save-cookie-login";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -45,54 +40,40 @@ export default function SignIn(): JSX.Element {
     resolver: zodResolver(signInForm),
   });
 
-  const { saveUserInfos } = useAuth();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [authenticationError, setAuthenticationError] = useState<string | null>(
-    null,
-  );
+  // const { saveUserInfos, saveUserToken } = useAuth();
+  // const [authenticationError, setAuthenticationError] = useState<string | null>(
+  //   null,
+  // );
 
   const router = useRouter();
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
-    setAuthenticationError(null);
+    const result = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
 
-    try {
-      const { email, password } = data;
-      const token = await signIn({ email, password });
-      await saveCookieLogin(token.data.token);
-
-      try {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/me`, // TODO: Ajustar esse .env para env.js
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${token.data.token}`,
-            },
-          },
-        );
-        saveUserInfos(response.data.user);
-      } catch (error) {
-        if (error instanceof AxiosError && error.response?.data?.message) {
-          // setSignUpError(error.response.data.message);
-          console.log("error", error);
-        } else {
-          // setSignUpError("Erro ao fazer o registro");
-          console.log("error");
-        }
-      }
-
-      // aqui vou descritografar o token ou chamar o /me ou coloco o token pra trazer o nome
-
-      await router.push("/dashboard");
-    } catch (error) {
-      if (error instanceof AxiosError && error.response?.data?.message) {
-        setAuthenticationError(error.response.data.message);
-      } else {
-        setAuthenticationError("Erro ao fazer login");
-      }
-      // TODO: Criar um tratamento de erros melhor
+    if (result?.error) {
+      console.log("result", result.error);
+      return;
     }
+
+    await router.replace("/dashboard");
+    //   setAuthenticationError(null);
+    //         `${process.env.NEXT_PUBLIC_API_URL}/me`, // TODO: Ajustar esse .env para env.js
+    //       if (error instanceof AxiosError && error.response?.data?.message) {
+    //         // setSignUpError(error.response.data.message);
+    //         console.log("error", error);
+    //         // setSignUpError("Erro ao fazer o registro");
+    //   } catch (error) {
+    //     if (error instanceof AxiosError && error.response?.data?.message) {
+    //       setAuthenticationError(error.response.data.message);
+    //     } else {
+    //       setAuthenticationError("Erro ao fazer login");
+    //     }
+    //     // TODO: Criar um tratamento de erros melhor
+    //   }
   };
 
   function handleRedirectToForgotPassword() {
@@ -119,9 +100,9 @@ export default function SignIn(): JSX.Element {
           className="flex w-full flex-col justify-center"
           method="POST"
         >
-          {authenticationError && (
+          {/* {authenticationError && (
             <p style={{ color: "red" }}>{authenticationError}</p>
-          )}
+          )} */}
           <Label htmlFor="username" className="mb-2">
             E-mail:
           </Label>
@@ -142,17 +123,18 @@ export default function SignIn(): JSX.Element {
           )}
           <div className="relative">
             <Input
-              type={showPassword ? "text" : "password"}
+              // type={showPassword ? "text" : "password"}
+              type="password"
               id="password"
               className="mb-4 rounded border border-gray-300 p-2 pr-10"
               {...register("password")}
             />
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
+              // onClick={() => setShowPassword(!showPassword)}
               className="absolute right-2 top-3"
             >
-              {showPassword ? <Eye /> : <EyeSlash />}
+              {/* {showPassword ? <Eye /> : <EyeSlash />} */}
             </button>
           </div>
           <button

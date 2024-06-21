@@ -1,23 +1,10 @@
-"use client";
-
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-
-import { Button } from "@/components/ui/button";
 
 import { FooterHome } from "./components/FooterHome";
 import { Header } from "./components/Header";
-import { useAuth } from "./context/AuthContext";
+import { JoinUsButton } from "./components/JoinUsButton";
 
 export default function Home() {
-  const router = useRouter();
-
-  const handleJoinUsClick = () => {
-    router.push("/sign-up");
-  };
-
-  const { user } = useAuth();
-
   return (
     <div>
       <Header />
@@ -37,7 +24,7 @@ export default function Home() {
             <div className="mt-16 w-full p-5 sm:w-1/2 sm:p-0">
               <span className="mb-5 inline-block bg-blue-800 px-2 py-2  text-3xl font-extrabold text-white antialiased">
                 {/* 0038A8 */}
-                Your group in Paraguay {user?.name}
+                Your group in Paraguay
               </span>
               <span className="mb-5 inline-block bg-red-600 px-2 py-2 font-semibold text-white antialiased">
                 {/* D52B1E */}
@@ -45,7 +32,7 @@ export default function Home() {
                 philanthropic work, to explore what the country offers, or to
                 make new friends, you&apos;ve found your group!
               </span>
-              <Button onClick={handleJoinUsClick}>Join us!</Button>
+              <JoinUsButton />
             </div>
           </div>
         </div>
