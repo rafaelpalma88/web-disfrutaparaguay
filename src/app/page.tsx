@@ -1,20 +1,10 @@
-"use client";
-
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-
-import { Button } from "@/components/ui/button";
 
 import { FooterHome } from "./components/FooterHome";
 import { Header } from "./components/Header";
+import { JoinUsButton } from "./components/JoinUsButton";
 
 export default function Home() {
-  const router = useRouter();
-
-  const handleJoinUsClick = () => {
-    router.push("/sign-up");
-  };
-
   return (
     <div>
       <Header />
@@ -42,7 +32,7 @@ export default function Home() {
                 philanthropic work, to explore what the country offers, or to
                 make new friends, you&apos;ve found your group!
               </span>
-              <Button onClick={handleJoinUsClick}>Join us!</Button>
+              <JoinUsButton />
             </div>
           </div>
         </div>

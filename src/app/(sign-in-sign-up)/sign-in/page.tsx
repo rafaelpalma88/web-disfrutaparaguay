@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { Eye, EyeSlash } from "phosphor-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -42,7 +40,6 @@ export default function SignIn(): JSX.Element {
     resolver: zodResolver(signInForm),
   });
 
-  const [showPassword, setShowPassword] = useState<boolean>(false);
   // const { saveUserInfos, saveUserToken } = useAuth();
   // const [authenticationError, setAuthenticationError] = useState<string | null>(
   //   null,
@@ -126,17 +123,18 @@ export default function SignIn(): JSX.Element {
           )}
           <div className="relative">
             <Input
-              type={showPassword ? "text" : "password"}
+              // type={showPassword ? "text" : "password"}
+              type="password"
               id="password"
               className="mb-4 rounded border border-gray-300 p-2 pr-10"
               {...register("password")}
             />
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
+              // onClick={() => setShowPassword(!showPassword)}
               className="absolute right-2 top-3"
             >
-              {showPassword ? <Eye /> : <EyeSlash />}
+              {/* {showPassword ? <Eye /> : <EyeSlash />} */}
             </button>
           </div>
           <button

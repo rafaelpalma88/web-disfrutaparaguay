@@ -40,7 +40,7 @@ function SignInForm(): JSX.Element {
     }
   }, [searchParams, setValue]);
 
-  const handleSignIn: SubmitHandler<FormValues> = async (
+  const handleSignIn: SubmitHandler<FormValues> = (
     data: ForgotPasswordForm,
   ) => {
     console.log("data", data);
