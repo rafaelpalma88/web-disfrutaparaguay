@@ -19,14 +19,12 @@ interface SignInCredentials {
   password: string;
 }
 
-export async function signIn({
+export async function signInTeste({
   email,
   password,
 }: SignInCredentials): Promise<SignInResponse> {
   try {
     const response = await api.post("sessions", { email, password });
-
-    console.log("response", response.data);
 
     return response.data;
   } catch (error) {

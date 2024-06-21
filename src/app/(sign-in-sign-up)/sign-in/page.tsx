@@ -4,11 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Eye, EyeSlash } from "phosphor-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { signIn } from "@/auth/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,8 +42,8 @@ export default function SignIn(): JSX.Element {
     resolver: zodResolver(signInForm),
   });
 
-  // const { saveUserInfos, saveUserToken } = useAuth();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  // const { saveUserInfos, saveUserToken } = useAuth();
   // const [authenticationError, setAuthenticationError] = useState<string | null>(
   //   null,
   // );
@@ -51,55 +51,24 @@ export default function SignIn(): JSX.Element {
   const router = useRouter();
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
-    try {
-      await signIn({ email: data.email, password: data.password });
+    const result = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
 
-      await router.push("/dashboard");
-    } catch (error) {
-      if (error) {
-        // switch (error.type) {
-        //   case "CredentialsSignin":
-        //     return "Invalid credentials.";
-        //   default:
-        //     return "Something went wrong.";
-        // }
-        console.log(error);
-      }
-      throw error;
+    if (result?.error) {
+      console.log("result", result.error);
+      return;
     }
 
+    await router.replace("/dashboard");
     //   setAuthenticationError(null);
-
-    //   try {
-    //     const { email, password } = data;
-    //     const token = await signIn({ email, password });
-    //     await saveCookieUser(token.data.token);
-
-    //     try {
-    //       const response = await axios.post(
     //         `${process.env.NEXT_PUBLIC_API_URL}/me`, // TODO: Ajustar esse .env para env.js
-    //         null,
-    //         {
-    //           headers: {
-    //             Authorization: `Bearer ${token.data.token}`,
-    //           },
-    //         },
-    //       );
-    //       await saveUserInfos(response.data.user);
-    //       await saveUserToken(token.data.token);
-    //     } catch (error) {
     //       if (error instanceof AxiosError && error.response?.data?.message) {
     //         // setSignUpError(error.response.data.message);
     //         console.log("error", error);
-    //       } else {
     //         // setSignUpError("Erro ao fazer o registro");
-    //         console.log("error");
-    //       }
-    //     }
-
-    //     // aqui vou descritografar o token ou chamar o /me ou coloco o token pra trazer o nome
-
-    //     await router.push("/dashboard");
     //   } catch (error) {
     //     if (error instanceof AxiosError && error.response?.data?.message) {
     //       setAuthenticationError(error.response.data.message);
