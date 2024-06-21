@@ -1,24 +1,20 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import { ChevronDown, LogOut } from "lucide-react";
+import { getServerSession } from "next-auth";
+import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { nextAuthOptions } from "@/utils/authOptions";
 
-export function AccountMenu() {
-  const router = useRouter();
+import { ButtonLogout } from "./ButtonSignOut";
 
-  async function handleSignOut() {
-    await router.push("/sign-in");
-  }
+export async function AccountMenu() {
+  const session = await getServerSession(nextAuthOptions);
 
   return (
     <DropdownMenu>
@@ -27,15 +23,15 @@ export function AccountMenu() {
           variant="outline"
           className="flex select-none items-center gap-2"
         >
-          Rafael Costa Palma
+          {session?.user.name}
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col">
-          <span> Rafael Costa Palma</span>
+          <span>{session?.user.name}</span>
           <span className="text-xs font-normal text-muted-foreground">
-            rafaelcostapalma@protonmail.com
+            {session?.user.email}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -43,14 +39,7 @@ export function AccountMenu() {
           <Building className="mr-2 h-4 w-4" />
           <span className="text-foreground">Perfil da loja</span>
         </DropdownMenuItem> */}
-        <DropdownMenuItem
-          className="text-rose-500 dark:text-rose-400"
-          onClick={handleSignOut}
-          style={{ cursor: "pointer" }}
-        >
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>Sair</span>
-        </DropdownMenuItem>
+        <ButtonLogout />
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
+  console.log("request", request);
   //   const currentUser = request.cookies.get("@web-disfrutaparaguay")?.value;
 
   //   if (currentUser && !request.nextUrl.pathname.startsWith("/dashboard")) {

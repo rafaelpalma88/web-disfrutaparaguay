@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "../ModeThemeToggle";
 import Navbar from "../Navbar";
 
-export const Header = () => {
+export const Header = async () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
