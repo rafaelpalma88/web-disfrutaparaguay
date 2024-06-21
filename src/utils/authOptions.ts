@@ -23,7 +23,9 @@ export const nextAuthOptions: NextAuthOptions = {
                 password: credentials.password,
               },
             );
-            return response.data;
+            const user = response.data;
+            delete user.password;
+            return user;
           } catch (error) {
             if (error instanceof AxiosError && error.response?.data?.message) {
               throw new Error(error.response.data.message);

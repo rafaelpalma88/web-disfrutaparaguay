@@ -13,8 +13,6 @@ import { nextAuthOptions } from "@/utils/authOptions";
 
 import { ButtonLogout } from "./ButtonSignOut";
 
-// import { ButtonLogout } from "./ButtonSignOut";
-
 export async function AccountMenu() {
   const session = await getServerSession(nextAuthOptions);
 
@@ -25,15 +23,15 @@ export async function AccountMenu() {
           variant="outline"
           className="flex select-none items-center gap-2"
         >
-          {session?.user.name}
+          {session?.user?.name && session?.user?.name}
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col">
-          <span>{session?.user.name}</span>
+          <span>{session?.user?.name && session?.user?.name}</span>
           <span className="text-xs font-normal text-muted-foreground">
-            {session?.user.email}
+            {session?.user?.name && session?.user?.name}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
