@@ -50,6 +50,8 @@ export default function SignIn(): JSX.Element {
   const router = useRouter();
 
   const handleSignIn: SubmitHandler<FormValues> = async (data: SignInForm) => {
+    setAuthenticationError(null);
+
     const result = await signIn("credentials", {
       email: data.email,
       password: data.password,
@@ -57,26 +59,11 @@ export default function SignIn(): JSX.Element {
     });
 
     if (result?.error) {
-      console.log("result", result.error);
       setAuthenticationError(result.error);
       return;
     }
 
     await router.replace("/dashboard");
-    //   setAuthenticationError(null);
-    //         `${process.env.NEXT_PUBLIC_API_URL}/me`, // TODO: Ajustar esse .env para env.js
-    //       if (error instanceof AxiosError && error.response?.data?.message) {
-    //         // setSignUpError(error.response.data.message);
-    //         console.log("error", error);
-    //         // setSignUpError("Erro ao fazer o registro");
-    //   } catch (error) {
-    //     if (error instanceof AxiosError && error.response?.data?.message) {
-    //       setAuthenticationError(error.response.data.message);
-    //     } else {
-    //       setAuthenticationError("Erro ao fazer login");
-    //     }
-    //     // TODO: Criar um tratamento de erros melhor
-    //   }
   };
 
   function handleRedirectToForgotPassword() {
