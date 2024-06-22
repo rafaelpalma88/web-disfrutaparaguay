@@ -12,6 +12,11 @@ export function ButtonLogout() {
   async function handleSignOut() {
     await signOut({ redirect: false });
 
+    // Remover cookies manualmente
+    // destroyCookie(null, "next-auth.callback-url");
+    // destroyCookie(null, "next-auth.callback-url");
+    // destroyCookie(null, "next-auth.csrf-token");
+
     router.replace("/sign-in");
   }
 

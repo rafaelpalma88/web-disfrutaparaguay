@@ -23,7 +23,6 @@ export const nextAuthOptions: NextAuthOptions = {
                 password: credentials.password,
               },
             );
-            console.log("response.data", response.data);
             return response.data;
           } catch (error) {
             if (error instanceof AxiosError && error.response?.data?.message) {

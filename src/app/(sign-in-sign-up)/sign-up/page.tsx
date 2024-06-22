@@ -8,7 +8,7 @@ import { AxiosError } from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { registerUser } from "@/api/register-user";
+import { registerUser } from "@/app/api/register-user";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
