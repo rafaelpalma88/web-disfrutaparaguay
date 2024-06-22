@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { Eye, EyeSlash } from "phosphor-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -40,10 +42,10 @@ export default function SignIn(): JSX.Element {
     resolver: zodResolver(signInForm),
   });
 
-  // const { saveUserInfos, saveUserToken } = useAuth();
-  // const [authenticationError, setAuthenticationError] = useState<string | null>(
-  //   null,
-  // );
+  const [authenticationError, setAuthenticationError] = useState<string | null>(
+    null,
+  );
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -56,6 +58,7 @@ export default function SignIn(): JSX.Element {
 
     if (result?.error) {
       console.log("result", result.error);
+      setAuthenticationError(result.error);
       return;
     }
 
@@ -82,7 +85,7 @@ export default function SignIn(): JSX.Element {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex items-center justify-center sm:min-h-screen">
       <div className="flex w-96 flex-col items-center justify-center rounded-lg p-8 sm:border sm:border-gray-300 sm:shadow-md">
         <Link href={"/"} className="mb-4 w-3/4">
           <Image
@@ -100,9 +103,9 @@ export default function SignIn(): JSX.Element {
           className="flex w-full flex-col justify-center"
           method="POST"
         >
-          {/* {authenticationError && (
+          {authenticationError && (
             <p style={{ color: "red" }}>{authenticationError}</p>
-          )} */}
+          )}
           <Label htmlFor="username" className="mb-2">
             E-mail:
           </Label>
@@ -123,18 +126,18 @@ export default function SignIn(): JSX.Element {
           )}
           <div className="relative">
             <Input
-              // type={showPassword ? "text" : "password"}
-              type="password"
+              type={showPassword ? "text" : "password"}
+              autoComplete="new-password"
               id="password"
               className="mb-4 rounded border border-gray-300 p-2 pr-10"
               {...register("password")}
             />
             <button
               type="button"
-              // onClick={() => setShowPassword(!showPassword)}
+              onClick={() => setShowPassword(!showPassword)}
               className="absolute right-2 top-3"
             >
-              {/* {showPassword ? <Eye /> : <EyeSlash />} */}
+              {showPassword ? <Eye /> : <EyeSlash />}
             </button>
           </div>
           <button

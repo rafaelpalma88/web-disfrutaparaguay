@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import { Toaster } from "@/components/ui/toaster";
 import NextAuthSessionProvider from "@/providers/sessionProvider";
 
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -33,7 +32,6 @@ export default function RootLayout({
           <NextAuthSessionProvider>
             <div className="flex min-h-screen flex-col">{children}</div>
           </NextAuthSessionProvider>
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>

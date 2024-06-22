@@ -12,7 +12,7 @@ export function ButtonLogout() {
   async function handleSignOut() {
     await signOut({ redirect: false });
 
-    router.replace("sign-in");
+    router.replace("/sign-in");
   }
 
   return (

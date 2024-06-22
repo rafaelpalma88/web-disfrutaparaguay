@@ -23,9 +23,8 @@ export const nextAuthOptions: NextAuthOptions = {
                 password: credentials.password,
               },
             );
-            const user = response.data;
-            delete user.password;
-            return user;
+            console.log("response.data", response.data);
+            return response.data;
           } catch (error) {
             if (error instanceof AxiosError && error.response?.data?.message) {
               throw new Error(error.response.data.message);
@@ -43,6 +42,7 @@ export const nextAuthOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       user && (token.user = user);
+      console.log("token", token);
       return token;
     },
     async session({ session, token }) {

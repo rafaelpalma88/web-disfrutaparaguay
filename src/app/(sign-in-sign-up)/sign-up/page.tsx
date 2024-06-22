@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { AxiosError } from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -58,7 +59,18 @@ export default function SignUp(): JSX.Element {
 
       setNameUserCreated(userCreated?.data?.user?.name);
 
-      // const token = await signIn({ email, password });
+      const result = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        console.log("result", result.error);
+        return;
+      }
+
+      await router.replace("/dashboard");
 
       setIsFormSubmitted(true);
     } catch (error) {
@@ -68,8 +80,6 @@ export default function SignUp(): JSX.Element {
         setSignUpError("Erro ao fazer o registro");
       }
     }
-
-    // await new Promise((resolve) => setTimeout(resolve, 2000));
   };
 
   async function handleGoToDashboard() {
@@ -77,7 +87,7 @@ export default function SignUp(): JSX.Element {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex items-center justify-center sm:min-h-screen">
       <div className="flex w-96 flex-col items-center justify-center rounded-lg border border-gray-300 p-8 shadow-md">
         <Link href={"/"} className="mb-4 w-3/4">
           <Image
@@ -89,16 +99,7 @@ export default function SignUp(): JSX.Element {
             priority={true}
           />
         </Link>
-        {/* <Button
-          onClick={() => {
-            toast({
-              title: "Scheduled: Catch up",
-              description: "Friday, February 10, 2023 at 5:57 PM",
-            });
-          }}
-        >
-          Show Toast
-        </Button> */}
+
         {isFormSubmitted ? (
           <div className="flex w-full flex-col justify-center">
             <p>
