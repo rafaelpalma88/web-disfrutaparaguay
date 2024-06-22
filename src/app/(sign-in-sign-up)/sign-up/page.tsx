@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { AxiosError } from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -14,6 +15,11 @@ import { Label } from "@/components/ui/label";
 
 interface FormValues {
   name: string;
+  email: string;
+  password: string;
+}
+
+interface IUserInfos {
   email: string;
   password: string;
 }
@@ -40,6 +46,7 @@ export default function SignUp(): JSX.Element {
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
   const [nameUserCreated, setNameUserCreated] = useState<string>("");
   const [signUpError, setSignUpError] = useState<string | null>(null);
+  const [userInfos, setUserInfos] = useState<IUserInfos | null>(null);
   const {
     register,
     handleSubmit,
@@ -58,16 +65,7 @@ export default function SignUp(): JSX.Element {
 
       setNameUserCreated(userCreated?.data?.user?.name);
 
-      // const result = await signIn("credentials", {
-      //   email,
-      //   password,
-      //   redirect: false,
-      // });
-
-      // if (result?.error) {
-      //   console.log("result", result.error);
-      //   return;
-      // }
+      setUserInfos({ email, password });
 
       setIsFormSubmitted(true);
     } catch (error) {
@@ -79,8 +77,25 @@ export default function SignUp(): JSX.Element {
     }
   };
 
-  async function handleGoToLogin() {
-    await router.push("/sign-in");
+  async function handleGoToDashboard() {
+    if (userInfos) {
+      const { email, password } = userInfos;
+
+      if (email && password) {
+        const result = await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+
+        if (result?.error) {
+          console.log("result", result.error);
+          return;
+        }
+
+        await router.push("/dashboard");
+      }
+    }
   }
 
   return (
@@ -108,9 +123,9 @@ export default function SignUp(): JSX.Element {
               style={{ marginTop: 20 }}
               type="submit"
               className="mb-4 rounded bg-blue-500 px-4 py-2 text-white"
-              onClick={handleGoToLogin}
+              onClick={handleGoToDashboard}
             >
-              Go to login
+              Go to dashboard
             </button>
           </div>
         ) : (

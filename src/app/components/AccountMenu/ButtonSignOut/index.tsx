@@ -1,23 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
 
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 export function ButtonLogout() {
-  const router = useRouter();
-
   async function handleSignOut() {
-    await signOut({ redirect: false });
-
-    // Remover cookies manualmente
-    // destroyCookie(null, "next-auth.callback-url");
-    // destroyCookie(null, "next-auth.callback-url");
-    // destroyCookie(null, "next-auth.csrf-token");
-
-    router.replace("/sign-in");
+    await signOut();
   }
 
   return (
