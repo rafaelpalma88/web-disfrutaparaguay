@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
 import { AxiosError } from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -59,18 +58,16 @@ export default function SignUp(): JSX.Element {
 
       setNameUserCreated(userCreated?.data?.user?.name);
 
-      const result = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
+      // const result = await signIn("credentials", {
+      //   email,
+      //   password,
+      //   redirect: false,
+      // });
 
-      if (result?.error) {
-        console.log("result", result.error);
-        return;
-      }
-
-      await router.replace("/dashboard");
+      // if (result?.error) {
+      //   console.log("result", result.error);
+      //   return;
+      // }
 
       setIsFormSubmitted(true);
     } catch (error) {
@@ -82,8 +79,8 @@ export default function SignUp(): JSX.Element {
     }
   };
 
-  async function handleGoToDashboard() {
-    await router.push("/dashboard");
+  async function handleGoToLogin() {
+    await router.push("/sign-in");
   }
 
   return (
@@ -111,9 +108,9 @@ export default function SignUp(): JSX.Element {
               style={{ marginTop: 20 }}
               type="submit"
               className="mb-4 rounded bg-blue-500 px-4 py-2 text-white"
-              onClick={handleGoToDashboard}
+              onClick={handleGoToLogin}
             >
-              Go to dashboard
+              Go to login
             </button>
           </div>
         ) : (
