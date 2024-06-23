@@ -61,17 +61,29 @@ export default function SignUp(): JSX.Element {
     try {
       const { name, email, password } = data;
 
-      const userCreated = await registerUser({ name, email, password });
+      try {
+        const userCreated = await registerUser({ name, email, password });
 
-      setNameUserCreated(userCreated?.data?.user?.name);
+        console.log("userCreated xxx", userCreated);
 
-      setUserInfos({ email, password });
+        if (userCreated) {
+          setNameUserCreated(userCreated?.data?.user?.name);
 
-      setIsFormSubmitted(true);
+          setUserInfos({ email, password });
+
+          setIsFormSubmitted(true);
+        } else {
+          // TODO: colocar alguma mensagem de erro
+        }
+      } catch (error) {
+        console.log(error);
+      }
     } catch (error) {
       if (error instanceof AxiosError && error.response?.data?.message) {
+        console.log(error.response.data.message);
         setSignUpError(error.response.data.message);
       } else {
+        console.log("Erro ao fazer o registro");
         setSignUpError("Erro ao fazer o registro");
       }
     }

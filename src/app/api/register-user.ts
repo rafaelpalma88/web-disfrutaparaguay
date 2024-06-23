@@ -1,4 +1,4 @@
-import { api } from "@/app/lib/axios";
+import { api } from "../lib/axios";
 
 export interface RegisterUserBody {
   name: string;
@@ -11,7 +11,16 @@ export async function registerUser({
   email,
   password,
 }: RegisterUserBody) {
-  const createdUser = await api.post("users", { name, email, password });
+  try {
+    const createdUser = await api.post("users", {
+      name,
+      email,
+      password,
+    });
 
-  return createdUser;
+    return createdUser;
+  } catch (error) {
+    console.log("error", error);
+    throw new Error("Erro ao criar usuário");
+  }
 }
