@@ -1,6 +1,8 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+
+import { api } from "@/app/lib/axios";
 
 export const nextAuthOptions: NextAuthOptions = {
   providers: [
@@ -15,14 +17,10 @@ export const nextAuthOptions: NextAuthOptions = {
       async authorize(credentials, _request) {
         if (credentials) {
           try {
-            const response = await axios.post(
-              // `http://localhost:4000/sessions`,
-              `https://api-disfruta-paraguay.onrender.com/sessions`, //TODO: resolver variaveis de ambiente
-              {
-                email: credentials.email,
-                password: credentials.password,
-              },
-            );
+            const response = await api.post("/sessions", {
+              email: credentials.email,
+              password: credentials.password,
+            });
             return response.data;
           } catch (error) {
             if (error instanceof AxiosError && error.response?.data?.message) {
