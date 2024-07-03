@@ -11,6 +11,11 @@ import { NavLink } from "../components/NavLink";
 
 import "../globals.css";
 
+export const metadata = {
+  title: "Dashboard | Disfruta Paraguay",
+  description: "Welcome to Disfruta Paraguay, your group in Paraguay.",
+};
+
 export default async function RestrictedAreaLayout({
   children,
 }: {
