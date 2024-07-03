@@ -3,11 +3,9 @@ import Image from "next/image";
 import { FooterHome } from "./components/FooterHome";
 import { Header } from "./components/Header";
 import { JoinUsButton } from "./components/JoinUsButton";
+import { customMetadata } from "./lib/metadata";
 
-export const metadata = {
-  title: "Home | Disfruta Paraguay",
-  description: "Welcome to Disfruta Paraguay, your group in Paraguay.",
-};
+export const metadata = customMetadata("Home");
 
 export default function Home() {
   return (

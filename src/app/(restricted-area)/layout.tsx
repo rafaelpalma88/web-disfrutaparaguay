@@ -8,13 +8,11 @@ import { nextAuthOptions } from "@/utils/authOptions";
 import { AccountMenu } from "../components/AccountMenu";
 import { ModeToggle } from "../components/ModeThemeToggle";
 import { NavLink } from "../components/NavLink";
+import { customMetadata } from "../lib/metadata";
 
 import "../globals.css";
 
-export const metadata = {
-  title: "Dashboard | Disfruta Paraguay",
-  description: "Welcome to Disfruta Paraguay, your group in Paraguay.",
-};
+export const metadata = customMetadata("Dashboard");
 
 export default async function RestrictedAreaLayout({
   children,
