@@ -29,14 +29,14 @@ export async function Sidebar() {
         }}
       >
         <Image
-          src="https://avatars.githubusercontent.com/u/23245187?v=4"
+          // src="https://avatars.githubusercontent.com/u/23245187?v=4"
+          src="/user.jpg"
           alt={session?.user?.name ? session?.user?.name : "User profile"}
           width={48}
           height={48}
           style={{
             borderRadius: 8,
-            border: "4px solid gray",
-            outline: "2px solid green",
+            border: "2px solid gray",
             width: "calc(2rem + 16px)",
             height: "calc(2rem + 16px)",
           }}
@@ -52,8 +52,6 @@ export async function Sidebar() {
 
       <footer
         style={{
-          borderTop: "1px solid gray",
-          marginTop: "1.5rem",
           padding: "1.5rem 2rem 2rem",
         }}
       >

@@ -27,7 +27,7 @@ export default async function RestrictedAreaLayout({
   return (
     <>
       <div>
-        <div className="border-b">
+        <div className="fixed left-0 right-0 top-0 z-50 border-b bg-white dark:bg-gray-900">
           <div className="flex h-16 items-center gap-6 px-6">
             <Smile className="h-6 w-6" />
 
@@ -51,7 +51,7 @@ export default async function RestrictedAreaLayout({
             <HeaderUserMenu />
           </div>
         </div>
-        <div className="pb-6 pl-6 pr-6 pt-5">{children}</div>
+        <div className="pb-6 pl-6 pr-6 pt-20">{children}</div>
       </div>
     </>
   );
