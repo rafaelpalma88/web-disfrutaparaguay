@@ -9,6 +9,7 @@ declare module "next-auth" {
       email: string;
       password: string;
       name: string;
+      role: "MEMBER" | "ADMIN" | "NOT_APPROVED";
     };
   }
 }

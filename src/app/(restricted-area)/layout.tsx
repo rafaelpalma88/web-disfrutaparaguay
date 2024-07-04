@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { Home, Pizza, UtensilsCrossed } from "lucide-react";
+import { Home, MessageCircle, Smile } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
 import { nextAuthOptions } from "@/utils/authOptions";
 
-import { AccountMenu } from "../components/AccountMenu";
+import { HeaderUserMenu } from "../components/HeaderUserMenu";
 import { ModeToggle } from "../components/ModeThemeToggle";
 import { NavLink } from "../components/NavLink";
 import { customMetadata } from "../lib/metadata";
@@ -29,27 +29,31 @@ export default async function RestrictedAreaLayout({
       <div>
         <div className="border-b">
           <div className="flex h-16 items-center gap-6 px-6">
-            <Pizza className="h-6 w-6" />
+            <Smile className="h-6 w-6" />
 
             <Separator orientation="vertical" className="h-6" />
 
             <nav className="flex flex-1 items-center space-x-4 lg:space-x-6">
-              <NavLink href="/">
+              <NavLink href="/dashboard">
                 <Home className="h-4 w-4" />
                 Início
               </NavLink>
-              <NavLink href="/">
-                <UtensilsCrossed className="h-4 w-4" />
-                Pedidos
-              </NavLink>
-              <NavLink href="/sign-in">
+              {(session?.user?.role === "MEMBER" || session?.user?.role) ===
+                "ADMIN" && (
+                <NavLink href="/forum">
+                  <MessageCircle className="h-4 w-4" />
+                  Forum
+                </NavLink>
+              )}
+
+              {/* <NavLink href="/sign-in">
                 <UtensilsCrossed className="h-4 w-4" />
                 Sign In
-              </NavLink>
+              </NavLink> */}
             </nav>
 
             <ModeToggle />
-            <AccountMenu />
+            <HeaderUserMenu />
           </div>
         </div>
         <div className="pb-6 pl-6 pr-6 pt-5">{children}</div>

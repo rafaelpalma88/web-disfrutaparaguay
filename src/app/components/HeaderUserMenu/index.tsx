@@ -13,7 +13,7 @@ import { nextAuthOptions } from "@/utils/authOptions";
 
 import { ButtonLogout } from "./ButtonSignOut";
 
-export async function AccountMenu() {
+export async function HeaderUserMenu() {
   const session = await getServerSession(nextAuthOptions);
 
   return (
