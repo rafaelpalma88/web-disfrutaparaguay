@@ -1,11 +1,9 @@
 import { Sidebar } from "@/app/components/Sidebar";
 import { customMetadata } from "@/app/lib/metadata";
 
-import { Post } from "./Post";
+export const metadata = customMetadata("Profile");
 
-export const metadata = customMetadata("Forum");
-
-export default function Forum() {
+export default function Profile() {
   return (
     <div
       className="wrapper"
@@ -21,10 +19,8 @@ export default function Forum() {
     >
       <Sidebar />
       <main>
-        <p>Forum</p>
-        <Post />
-        <Post />
-        <Post />
+        <p>Profile</p>
+        <p>xxxxx</p>
       </main>
     </div>
   );

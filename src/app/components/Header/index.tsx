@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
-
+import { CustomButton as Button } from "../CustomButton";
 import { ModeToggle } from "../ModeThemeToggle";
 import Navbar from "../Navbar";
 
@@ -57,9 +56,7 @@ export const Header = () => {
           <nav className="hidden md:block">
             <ul className="flex items-center justify-center space-x-4">
               <li className="pl-2 pr-2">
-                <Link href="/sign-in">
-                  <Button>Sign In</Button>
-                </Link>
+                <Button type="DEFAULT" direction="/sign-in" title="Sign In" />
               </li>
               <li className="pl-1 pr-1 sm:pl-2 sm:pr-2">
                 <ModeToggle />

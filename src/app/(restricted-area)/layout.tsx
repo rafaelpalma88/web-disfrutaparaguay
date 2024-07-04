@@ -45,11 +45,6 @@ export default async function RestrictedAreaLayout({
                   Forum
                 </NavLink>
               )}
-
-              {/* <NavLink href="/sign-in">
-                <UtensilsCrossed className="h-4 w-4" />
-                Sign In
-              </NavLink> */}
             </nav>
 
             <ModeToggle />

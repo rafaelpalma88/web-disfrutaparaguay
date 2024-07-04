@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+//TODO: As vezes faço login e ele não direciona corretamente para o dashboard
+
 interface FormValues {
   email: string;
   password: string;
@@ -66,7 +68,7 @@ export default function SignInForm(): JSX.Element {
     await router.replace("/dashboard");
   };
 
-  function handleRedirectToForgotPassword() {
+  async function handleRedirectToForgotPassword() {
     const email = getValues("email");
     router.push(`/forgot-password?email=${encodeURIComponent(email)}`);
   }
