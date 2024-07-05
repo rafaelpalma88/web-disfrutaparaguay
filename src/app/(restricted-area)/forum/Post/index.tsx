@@ -2,25 +2,13 @@ import Image from "next/image";
 import { getServerSession } from "next-auth";
 
 import { showUserRole } from "@/app/lib/show-user-role";
+import { IComment } from "@/app/utils/interfaces/IComment";
+import { IPost } from "@/app/utils/interfaces/IPost";
 import { nextAuthOptions } from "@/utils/authOptions";
 
 import { Comment } from "../Comment";
 
-export interface PostProps {
-  id: string;
-  title: string;
-  content: string;
-  comments: CommentProps[];
-}
-
-export interface CommentProps {
-  id: string;
-  authorId: string;
-  authorName: string;
-  content: string;
-}
-
-export async function Post({ id, title, content, comments }: PostProps) {
+export async function Post({ id, title, content, comments }: IPost) {
   const session = await getServerSession(nextAuthOptions);
 
   return (
@@ -29,7 +17,7 @@ export async function Post({ id, title, content, comments }: PostProps) {
         background: "lightgray",
         borderRadius: 8,
         padding: "2.5rem",
-        marginBottom: "1.5rem",
+        marginBottom: "2rem",
       }}
     >
       <header
@@ -153,9 +141,17 @@ export async function Post({ id, title, content, comments }: PostProps) {
           Comentar
         </button>
       </form>
-      <div>
-        {comments.map((comment: CommentProps) => {
-          return <Comment key={comment.id} />;
+      <div style={{ marginTop: "2rem" }}>
+        {comments.map((comment: IComment) => {
+          return (
+            <Comment
+              key={comment.id}
+              id={comment.id}
+              authorId={comment.authorId}
+              authorName={comment.authorName}
+              content={comment.content}
+            />
+          );
         })}
       </div>
     </article>
