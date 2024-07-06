@@ -48,19 +48,10 @@ export const metadata = customMetadata("Forum");
 
 export default function Forum() {
   return (
-    <div
-      className="wrapper"
-      style={{
-        maxWidth: "70rem",
-        margin: "2rem auto",
-        padding: "0 1rem",
-        display: "grid",
-        gridTemplateColumns: "256px 1fr",
-        gap: "2rem",
-        alignItems: "flex-start",
-      }}
-    >
-      <Sidebar />
+    <div className="wrapper mx-auto my-8 grid max-w-[70rem] gap-8 px-4 lg:grid-cols-[256px_1fr]">
+      <div className="hidden lg:block">
+        <Sidebar />
+      </div>
       <main>
         {postsMock.map((post) => {
           return (

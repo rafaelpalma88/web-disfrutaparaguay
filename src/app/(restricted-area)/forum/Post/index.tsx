@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { getServerSession } from "next-auth";
 
+import { Avatar } from "@/app/components/Avatar";
 import { showUserRole } from "@/app/lib/show-user-role";
 import { IComment } from "@/app/utils/interfaces/IComment";
 import { IPost } from "@/app/utils/interfaces/IPost";
@@ -12,76 +12,33 @@ export async function Post({ id, title, content, comments }: IPost) {
   const session = await getServerSession(nextAuthOptions);
 
   return (
-    <article
-      style={{
-        background: "lightgray",
-        borderRadius: 8,
-        padding: "2.5rem",
-        marginBottom: "2rem",
-      }}
-    >
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "1rem",
-          }}
-        >
-          <Image
-            src="/user.jpg"
-            alt={session?.user?.name ? session?.user?.name : "User profile"}
-            width={48}
-            height={48}
-            style={{
-              borderRadius: 8,
-              border: "2px solid gray",
-              // outline: "2px solid green",
-              width: "calc(2rem + 16px)",
-              height: "calc(2rem + 16px)",
-            }}
+    <article className="mb-8 rounded-lg bg-gray-200 p-10 dark:bg-gray-500">
+      <header className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Avatar
+            name={session?.user?.name ? session?.user?.name : "User profile"}
           />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <strong
-              style={{ display: "block", color: "black", lineHeight: 1.6 }}
-            >
+          <div className="flex flex-col">
+            <strong className="block leading-6 text-black">
               {session?.user?.name ? session?.user?.name : "User profile"}
             </strong>
-            <span
-              style={{
-                display: "block",
-                fontSize: "0.875rem",
-                color: "black",
-                lineHeight: 1.6,
-              }}
-            >
+            <span className="block text-sm leading-6 text-black">
               {session?.user?.role && showUserRole(session?.user?.role)}
             </span>
           </div>
         </div>
         <time
-          style={{ fontSize: "0.875rem", color: "black" }}
+          className="text-sm text-black"
           title="11 de maio às 08:13h"
           dateTime="2022-05-11 08:13:10"
         >
           Publicado há 1 hora
         </time>
       </header>
-      <div style={{ lineHeight: 1.6, color: "black", marginTop: "1.5rem" }}>
+      <div className="mt-6 leading-6 text-black">
         <h3>{title}</h3>
-        <p style={{ marginTop: "1rem" }}>{content}</p>
-        <p style={{ marginTop: "1rem" }}>Id: {id}</p>
+        <p className="mt-4">{content}</p>
+        <p className="mt-4">Id: {id}</p>
         {/* <p style={{ marginTop: "1rem" }}>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit.
         </p>
@@ -90,58 +47,25 @@ export async function Post({ id, title, content, comments }: IPost) {
           accusantium eum molestiae explicabo esse commodi autem, consequatur
           odio reiciendis.
         </p> */}
-        <p style={{ marginTop: "1rem" }}>
-          <a
-            style={{
-              fontWeight: "bold",
-              color: "green",
-              textDecoration: "none",
-            }}
-            href="#"
-          >
+        <p className="mt-4">
+          <a className="font-bold text-green-500 no-underline" href="#">
             Fugit, nihil explicabo!
           </a>
         </p>
       </div>
-      <form
-        style={{
-          width: "100%",
-          marginTop: "0.5rem",
-          marginBottom: "1.5rem",
-        }}
-      >
+      <form className="mb-6 mt-2 w-full">
         <textarea
-          style={{
-            width: "100%",
-            background: "gray",
-            border: 0,
-            resize: "none",
-            height: "6rem",
-            padding: "1rem",
-            borderRadius: 8,
-            color: "lightgray",
-            lineHeight: 1.4,
-            marginTop: "1rem",
-          }}
+          className="text-lightgray mt-4 h-24 w-full resize-none rounded-lg border-0 bg-gray-900 p-4 leading-tight"
           placeholder="Deixe um comentário"
         />
         <button
-          style={{
-            padding: "1rem 1.5rem",
-            marginTop: "1rem",
-            borderRadius: 8,
-            border: 0,
-            background: "green",
-            color: "white",
-            fontWeight: "bold",
-            cursor: "pointer", // criar hover no botao adicionando transitions
-          }}
+          className="mt-4 cursor-pointer rounded-lg border-0 bg-green-500 p-4 font-bold text-white transition-colors hover:bg-green-600"
           type="submit"
         >
           Comentar
         </button>
       </form>
-      <div style={{ marginTop: "2rem" }}>
+      <div className="mt-8">
         {comments.map((comment: IComment) => {
           return (
             <Comment

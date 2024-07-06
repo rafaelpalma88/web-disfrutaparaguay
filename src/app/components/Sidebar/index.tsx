@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getServerSession } from "next-auth";
 
+import { Avatar } from "@/app/components/Avatar";
 import { CustomButton as Button } from "@/app/components/CustomButton";
 import { showUserRole } from "@/app/lib/show-user-role";
 import { nextAuthOptions } from "@/utils/authOptions";
@@ -28,18 +29,8 @@ export async function Sidebar() {
           marginTop: "calc(0px - 1rem - 6px)",
         }}
       >
-        <Image
-          // src="https://avatars.githubusercontent.com/u/23245187?v=4"
-          src="/user.jpg"
-          alt={session?.user?.name ? session?.user?.name : "User profile"}
-          width={48}
-          height={48}
-          style={{
-            borderRadius: 8,
-            border: "2px solid gray",
-            width: "calc(2rem + 16px)",
-            height: "calc(2rem + 16px)",
-          }}
+        <Avatar
+          name={session?.user?.name ? session?.user?.name : "User profile"}
         />
 
         <strong style={{ marginTop: "1rem", color: "gray", lineHeight: 1.6 }}>

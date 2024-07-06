@@ -24,6 +24,7 @@ export default async function RestrictedAreaLayout({
   if (!session) {
     redirect("/sign-in");
   }
+
   return (
     <>
       <div>

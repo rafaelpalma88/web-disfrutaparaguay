@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { getServerSession } from "next-auth";
 import { ThumbsUp, Trash } from "lucide-react";
 
+import { Avatar } from "@/app/components/Avatar";
 import { IComment } from "@/app/utils/interfaces/IComment";
 import { nextAuthOptions } from "@/utils/authOptions";
 
@@ -9,41 +9,21 @@ export async function Comment({ id, authorId, authorName, content }: IComment) {
   const session = await getServerSession(nextAuthOptions);
 
   return (
-    <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem" }}>
-      <Image
-        src="/user.jpg"
-        alt={session?.user?.name ? session?.user?.name : "User profile"}
-        width={48}
-        height={48}
-        style={{
-          borderRadius: 8,
-          border: "2px solid gray",
-          width: "calc(2rem + 16px)",
-          height: "calc(2rem + 16px)",
-        }}
+    <div className="mt-6 flex gap-4">
+      <Avatar
+        name={session?.user?.name ? session?.user?.name : "User profile"}
       />
 
-      <div style={{ flex: 1 }}>
-        <div style={{ background: "gray", borderRadius: 8, padding: "1rem" }}>
-          <header
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="flex-1">
+        <div className="rounded-lg bg-gray-300 p-4">
+          <header className="flex items-center justify-between">
+            <div className="flex flex-col">
               <p>Id do comentário: {id}</p>
               <p>Id do autor: {authorId}</p>
 
-              <strong style={{ display: "block" }}>{authorName}</strong>
+              <strong className="block">{authorName}</strong>
               <time
-                style={{
-                  display: "block",
-                  fontSize: "0.875rem",
-                  color: "black",
-                  lineHeight: 1.6,
-                }}
+                className="block text-sm leading-6 text-black"
                 title="11 de maio às 08:13h"
                 dateTime="2022-05-11 08:13:10"
               >
@@ -51,33 +31,18 @@ export async function Comment({ id, authorId, authorName, content }: IComment) {
               </time>
             </div>
             <button
-              style={{
-                background: "transparent",
-                border: 0,
-                color: "gray",
-                cursor: "pointer",
-              }}
+              className="cursor-pointer rounded border-0 bg-transparent leading-none text-gray-500"
               title="Deletar comentário"
             >
-              <Trash />
+              <Trash className="text-black" />
             </button>
           </header>
-          <p>{content}</p>
+          <p className="mt-4">{content}</p>
         </div>
 
-        <footer>
-          <button
-            style={{
-              display: "flex",
-              background: "transparent",
-              border: 0,
-              color: "gray",
-              cursor: "pointer",
-              gap: "0.45rem",
-              marginTop: "0.5rem",
-            }}
-          >
-            <ThumbsUp />
+        <footer className="mt-4">
+          <button className="mt-2 flex cursor-pointer items-center gap-2 border-0 bg-transparent text-gray-500">
+            <ThumbsUp size={20} />
             Aplaudir <span>20</span>
           </button>
         </footer>
