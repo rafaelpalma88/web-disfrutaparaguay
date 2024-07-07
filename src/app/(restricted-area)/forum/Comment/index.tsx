@@ -1,13 +1,17 @@
-import { getServerSession } from "next-auth";
+"use client";
+
 import { ThumbsUp, Trash } from "lucide-react";
 
 import { Avatar } from "@/app/components/Avatar";
-import { IComment } from "@/app/utils/interfaces/IComment";
-import { nextAuthOptions } from "@/utils/authOptions";
+import { IComment } from "@/app/interfaces/IComment";
+import { ISession } from "@/app/interfaces/ISession";
 
-export async function Comment({ id, authorId, authorName, content }: IComment) {
-  const session = await getServerSession(nextAuthOptions);
+interface ICommentProps {
+  session: ISession;
+  comment: IComment;
+}
 
+export function Comment({ comment, session }: ICommentProps) {
   return (
     <div className="mt-6 flex gap-4">
       <Avatar
@@ -18,10 +22,10 @@ export async function Comment({ id, authorId, authorName, content }: IComment) {
         <div className="rounded-lg bg-gray-300 p-4">
           <header className="flex items-center justify-between">
             <div className="flex flex-col">
-              <p>Id do comentário: {id}</p>
-              <p>Id do autor: {authorId}</p>
+              <p>Id do comentário: {comment.id}</p>
+              <p>Id do autor: {comment.author.id}</p>
 
-              <strong className="block">{authorName}</strong>
+              <strong className="block">{comment.author.name}</strong>
               <time
                 className="block text-sm leading-6 text-black"
                 title="11 de maio às 08:13h"
@@ -37,7 +41,7 @@ export async function Comment({ id, authorId, authorName, content }: IComment) {
               <Trash className="text-black" />
             </button>
           </header>
-          <p className="mt-4">{content}</p>
+          <p className="mt-4">{comment.content}</p>
         </div>
 
         <footer className="mt-4">

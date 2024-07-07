@@ -73,4 +73,27 @@
   body {
     @apply bg-background text-foreground;
   }
+  html {
+    font-size: 100%; /* Exemplo de alteração responsiva */
+  }
+  @screen sm {
+    /* Aplica apenas em dispositivos com largura igual ou superior a 640px */
+    html {
+      font-size: 100%; /* Exemplo de alteração responsiva */
+    }
+  }
+
+  @screen md {
+    /* Aplica apenas em dispositivos com largura igual ou superior a 768px */
+    html {
+      font-size: 100%; /* Exemplo de outra alteração responsiva */
+    }
+  }
+
+  @screen lg {
+    /* Aplica apenas em dispositivos com largura igual ou superior a 1024px */
+    html {
+      font-size: 100%; /* Exemplo de outra alteração responsiva */
+    }
+  }
 }
