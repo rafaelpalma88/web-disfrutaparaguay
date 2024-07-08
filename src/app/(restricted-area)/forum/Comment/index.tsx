@@ -26,6 +26,8 @@ export function Comment({ comment, session }: ICommentProps) {
               <p>Id do autor: {comment.author.id}</p>
 
               <strong className="block">{comment.author.name}</strong>
+
+              {comment.content}
               <time
                 className="block text-sm leading-6 text-black"
                 title="11 de maio às 08:13h"

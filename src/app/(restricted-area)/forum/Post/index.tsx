@@ -1,14 +1,18 @@
 "use client";
 
-import { format, formatDistanceToNow } from "date-fns";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Avatar } from "@/app/components/Avatar";
 import { IComment } from "@/app/interfaces/IComment";
+import { IPost } from "@/app/interfaces/IPost";
 import { ISession } from "@/app/interfaces/ISession";
+import { api } from "@/app/lib/axios";
+import { dateTimeFormatAmericanDate } from "@/app/lib/date-time-format-american-date";
+import { dateTimeFormatRelativeToNow } from "@/app/lib/date-time-format-relative-to-now";
 import { showUserRole } from "@/app/lib/show-user-role";
-import { postsMock } from "@/app/mocks/postMock";
 
+// import { postsMock } from "@/app/mocks/postMock";
 import { Comment } from "../Comment";
 
 interface IPostProps {
@@ -16,6 +20,7 @@ interface IPostProps {
 }
 
 export function Post({ session }: IPostProps) {
+  const [posts, setPosts] = useState<IPost[]>([]);
   const {
     register,
     handleSubmit,
@@ -24,23 +29,32 @@ export function Post({ session }: IPostProps) {
   } = useForm();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (data: any) => console.log(data);
-
-  if (!session) {
-    return;
+  function onSubmit(data: any) {
+    console.log(data);
+    // id: "1",
+    // author: {
+    //   id: "123456",
+    //   avatarUrl: "https://avatars.githubusercontent.com/u/23245187?v=4",
+    //   name: "Rafael Costa Palma",
+    //   role: "ADMIN",
+    // },
+    // publishedAt: new Date("2022-05-03 20:00:00"),
+    // content: "Example Comment 1",
   }
 
-  function dateTimeFormatRelativeToNow(date: Date) {
-    return formatDistanceToNow(date, { addSuffix: true });
-  }
+  useEffect(() => {
+    async function getApiData() {
+      const result = await api.get("/posts");
+      setPosts(result.data.posts);
+      // setPosts(postsMock);
+    }
 
-  function dateTimeFormatAmericanDate(date: Date) {
-    return format(date, "EEEE, MMMM d, yyyy 'at' h:mm:ss a 'GMT'XXX");
-  }
+    getApiData();
+  }, []);
 
   return (
     <main>
-      {postsMock.map((post) => {
+      {posts.map((post) => {
         return (
           <article
             key={post.id}
@@ -65,7 +79,7 @@ export function Post({ session }: IPostProps) {
               <time
                 className="text-sm text-black"
                 title={dateTimeFormatAmericanDate(post.publishedAt)}
-                dateTime={post.publishedAt.toISOString()}
+                dateTime={new Date(post.publishedAt).toISOString()}
               >
                 {dateTimeFormatRelativeToNow(post.publishedAt)}
               </time>
