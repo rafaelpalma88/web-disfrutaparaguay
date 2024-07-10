@@ -3,7 +3,7 @@ export interface ISession {
     id: string;
     email: string;
     name: string;
-    role: "MEMBER" | "ADMIN" | "NOT_APPROVED";
+    role: IRoleUser;
     created_at: string | null;
     approved_at: boolean | null;
   };

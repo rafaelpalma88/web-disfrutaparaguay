@@ -1,4 +1,4 @@
-import { IComment } from "../interfaces/IComment";
+import { IComment } from "../types/IComment";
 
 export const commentMock: IComment = {
   id: "1",

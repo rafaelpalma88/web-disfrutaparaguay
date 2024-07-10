@@ -1,4 +1,4 @@
-import { IPost } from "../interfaces/IPost";
+import { IPost } from "../types/IPost";
 
 export const postsMock: IPost[] = [
   {

@@ -1,11 +1,12 @@
+import { IRoleUser } from "./IRoleUser";
+
 export interface IComment {
   id: string;
   author: {
     id: string;
     avatarUrl: string;
     name: string;
-    // role: "MEMBER" | "ADMIN" | "NOT_APPROVED";
-    role: string;
+    role: IRoleUser;
   };
   publishedAt: Date;
   content: string;

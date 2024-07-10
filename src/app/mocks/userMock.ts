@@ -1,4 +1,4 @@
-import { IUser } from "../interfaces/IUser";
+import { IUser } from "../types/IUser";
 
 export const userMock: IUser = {
   approved_at: null,

@@ -3,15 +3,18 @@
 import { ThumbsUp, Trash } from "lucide-react";
 
 import { Avatar } from "@/app/components/Avatar";
-import { IComment } from "@/app/interfaces/IComment";
-import { ISession } from "@/app/interfaces/ISession";
+import { dateTimeFormatAmericanDate } from "@/app/lib/date-time-format-american-date";
+import { dateTimeFormatRelativeToNow } from "@/app/lib/date-time-format-relative-to-now";
+import { IComment } from "@/app/types/IComment";
+import { ISession } from "@/app/types/ISession";
 
 interface ICommentProps {
   session: ISession;
   comment: IComment;
+  onRemoveComment: (commentId: string) => void;
 }
 
-export function Comment({ comment, session }: ICommentProps) {
+export function Comment({ comment, session, onRemoveComment }: ICommentProps) {
   return (
     <div className="mt-6 flex gap-4">
       <Avatar
@@ -22,25 +25,26 @@ export function Comment({ comment, session }: ICommentProps) {
         <div className="rounded-lg bg-gray-300 p-4">
           <header className="flex items-center justify-between">
             <div className="flex flex-col">
-              <p>Id do comentário: {comment.id}</p>
-              <p>Id do autor: {comment.author.id}</p>
+              <p style={{ display: "none" }}>
+                Id do autor: {comment.author.id}
+              </p>
 
               <strong className="block">{comment.author.name}</strong>
 
-              {comment.content}
               <time
-                className="block text-sm leading-6 text-black"
-                title="11 de maio às 08:13h"
-                dateTime="2022-05-11 08:13:10"
+                className="text-sm text-black"
+                title={dateTimeFormatAmericanDate(comment.publishedAt)}
+                dateTime={new Date(comment.publishedAt).toISOString()}
               >
-                Publicado há 1 hora
+                {dateTimeFormatRelativeToNow(comment.publishedAt)}
               </time>
             </div>
             <button
               className="cursor-pointer rounded border-0 bg-transparent leading-none text-gray-500"
-              title="Deletar comentário"
+              title="Remove comment"
+              onClick={() => onRemoveComment(comment.id)}
             >
-              <Trash className="text-black" />
+              <Trash size={15} className="text-black" />
             </button>
           </header>
           <p className="mt-4">{comment.content}</p>
@@ -49,7 +53,7 @@ export function Comment({ comment, session }: ICommentProps) {
         <footer className="mt-4">
           <button className="mt-2 flex cursor-pointer items-center gap-2 border-0 bg-transparent text-gray-500">
             <ThumbsUp size={20} />
-            Aplaudir <span>20</span>
+            Like <span>20</span>
           </button>
         </footer>
       </div>

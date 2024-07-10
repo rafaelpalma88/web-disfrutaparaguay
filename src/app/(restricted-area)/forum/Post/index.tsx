@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Avatar } from "@/app/components/Avatar";
-import { IComment } from "@/app/interfaces/IComment";
-import { IPost } from "@/app/interfaces/IPost";
-import { ISession } from "@/app/interfaces/ISession";
 import { api } from "@/app/lib/axios";
 import { dateTimeFormatAmericanDate } from "@/app/lib/date-time-format-american-date";
 import { dateTimeFormatRelativeToNow } from "@/app/lib/date-time-format-relative-to-now";
 import { showUserRole } from "@/app/lib/show-user-role";
+import { IComment } from "@/app/types/IComment";
+import { IPost } from "@/app/types/IPost";
+import { ISession } from "@/app/types/ISession";
 
 // import { postsMock } from "@/app/mocks/postMock";
 import { Comment } from "../Comment";
@@ -21,6 +21,7 @@ interface IPostProps {
 
 export function Post({ session }: IPostProps) {
   const [posts, setPosts] = useState<IPost[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -51,6 +52,11 @@ export function Post({ session }: IPostProps) {
 
     getApiData();
   }, []);
+
+  function handleRemoveComment(commentId: string) {
+    console.log("Removing comment with id:", commentId);
+    // Here you can update the state to remove the comment or perform any other action
+  }
 
   return (
     <main>
@@ -106,14 +112,15 @@ export function Post({ session }: IPostProps) {
               onSubmit={handleSubmit(onSubmit)}
               className="mb-6 mt-2 w-full"
             >
-              {errors.comment && <span>This field is required</span>}
+              {errors.newComment && <span>This field is required</span>}
               <textarea
-                {...register("comment", { required: true })}
-                className="text-lightgray mt-4 h-24 w-full resize-none rounded-lg border-0 bg-gray-900 p-4 leading-tight"
+                {...register("newComment", { required: true })}
+                className="mt-4 h-24 w-full resize-none rounded-lg border-0 bg-gray-900 p-4 leading-tight text-white"
                 placeholder="Deixe um comentário"
               />
               <button
                 className="mt-4 cursor-pointer rounded-lg border-0 bg-green-500 p-4 font-bold text-white transition-colors hover:bg-green-600"
+                disabled={errors.newComment ? true : false}
                 type="submit"
               >
                 Comentar
@@ -126,6 +133,7 @@ export function Post({ session }: IPostProps) {
                     key={comment.id}
                     session={session}
                     comment={comment}
+                    onRemoveComment={handleRemoveComment}
                   />
                 );
               })}

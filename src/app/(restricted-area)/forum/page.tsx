@@ -1,8 +1,8 @@
 import { getServerSession } from "next-auth";
 
 import { Sidebar } from "@/app/components/Sidebar";
-import { ISession } from "@/app/interfaces/ISession";
 import { customMetadata } from "@/app/lib/metadata";
+import { ISession } from "@/app/types/ISession";
 import { nextAuthOptions } from "@/utils/authOptions";
 
 import { Post } from "./Post";

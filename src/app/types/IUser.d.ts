@@ -4,5 +4,5 @@ export interface IUser {
   email: string;
   id: string;
   name: string;
-  role: "MEMBER" | "ADMIN" | "NOT_APPROVED";
+  role: IRoleUser;
 }

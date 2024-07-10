@@ -8,8 +8,7 @@ export interface IPost {
     id: string;
     avatarUrl: string;
     name: string;
-    // role: "MEMBER" | "ADMIN" | "NOT_APPROVED";
-    role: string;
+    role: IRoleUser;
   };
   publishedAt: Date;
   comments: IComment[];
