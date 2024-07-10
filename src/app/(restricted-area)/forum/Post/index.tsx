@@ -25,9 +25,11 @@ export function Post({ session }: IPostProps) {
   const {
     register,
     handleSubmit,
-    // watch,
+    watch,
     formState: { errors },
   } = useForm();
+
+  const commentContent = watch("newComment");
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function onSubmit(data: any) {
@@ -119,8 +121,8 @@ export function Post({ session }: IPostProps) {
                 placeholder="Deixe um comentário"
               />
               <button
-                className="mt-4 cursor-pointer rounded-lg border-0 bg-green-500 p-4 font-bold text-white transition-colors hover:bg-green-600"
-                disabled={errors.newComment ? true : false}
+                className="mt-4 cursor-pointer rounded-lg border-0 bg-green-500 p-4 font-bold text-white transition-colors hover:bg-green-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
+                disabled={errors.newComment ? true : false || !commentContent}
                 type="submit"
               >
                 Comentar
