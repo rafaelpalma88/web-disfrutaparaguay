@@ -6,10 +6,10 @@ import Link from "next/link";
 
 import { CustomButton as Button } from "../CustomButton";
 import { ModeToggle } from "../ModeThemeToggle";
-import Navbar from "../Navbar";
+import { NavbarHamburger } from "../NavbarHamburger";
 
 export const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,9 +50,9 @@ export const Header = () => {
               priority={true}
             />
           </Link>
-          <div className="pr-10 md:hidden">
-            <Navbar />
-          </div>
+
+          <NavbarHamburger />
+
           <nav className="hidden md:block">
             <ul className="flex items-center justify-center space-x-4">
               <li className="pl-2 pr-2">
